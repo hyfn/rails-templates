@@ -6,19 +6,25 @@ Well just template, singular for now.
 
 Rails app with es6 and a bootstrap admin.
 
+Like this:
+
+    rails new APP_NAME -d postgresql -J -C --skip-listen --skip-turbolinks -T -m ./rails-templates/app_2016.rb
+
 ### TODO
 
 - [ ] add rspec config file and helpers. maybe run rspec-rails generator?
 - [ ] add admin scss, add to assets
-- [ ] generate application.rb to autoload services dir, make empty services dir
-- [ ] generate development.rb, staging.rb, production.rb based on ones used on prior projects
+- [x] generate application.rb to autoload services dir, make empty services dir
+- [x] generate development.rb, staging.rb, production.rb based on ones used on prior projects
 - [ ] add admin login and routes? add simple_crud and other admin mixins
 - [ ] add admin view templates
 - [ ] prompt to add heroku remotes
 - [ ] trash secrets.yml and other rails junk we don't need
 - [ ] add example.env and .env (ignored) and update database.yml
 - [ ] maybe add heroku buildpack and update Procfile
-- [ ] Puma worker killer?
+- [x] puma + puma worker killer
+- [x] nginx config
+- [x] newrelic config
 
 ## admin_2013.rb
 
