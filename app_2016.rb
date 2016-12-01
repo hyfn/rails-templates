@@ -98,7 +98,7 @@ MAILER_DEFAULT_HOST=localhost:3000
 BASH
 
 file '.env', dotenv
-file 'example.env'
+file 'example.env', dotenv
 
 ####################################
 # DEVELOPMENT ENVIRONMENT
@@ -447,6 +447,7 @@ ERB
 ####################################
 # NEWRELIC CONFIG
 ####################################
+
 file 'config/newrelic.yml', <<-YAML
 common: &default_settings
   # Required license key associated with your New Relic account.
@@ -493,8 +494,282 @@ YAML
 
 generate('rspec:install')
 
+file 'app/controllers/concerns/simple_authenticable.rb', <<-'RUBY'
+module AdminAuthenticable
+  def authenticate!
+    return if session[:logged_in].present?
+
+    session[:return_to] = request.url
+    redirect_to [:new, :admin, :sessions]
+  end
+end
+RUBY
+
 ####################################
-# RSPEC GENERATOR
+# ADMIN ASSETS
+####################################
+
+file 'config/initializers/assets.rb', <<-'RUBY', force: true
+Rails.application.config.assets.version = ENV["ASSETS_VERSION"] || '1.0'
+
+# Add additional assets to the asset load path
+# Rails.application.config.assets.paths << Emoji.images_path
+
+Rails.application.config.assets.precompile += %w(admin.css admin.js)
+RUBY
+
+####################################
+# ADMIN ROUTES
+####################################
+
+route <<-'RUBY'
+    namespace :admin do
+      resource :sessions, only: [:new, :create, :destroy]
+    end
+RUBY
+
+####################################
+# ADMIN SIMPLE CRUD
+####################################
+
+file 'app/controllers/concerns/simple_crud.rb', <<-'RUBY'
+# TODO: document
+# TODO: automatically specify params.require(:singular)
+# TODO: overridable redirect target (same page vs. index)
+module SimpleCrud
+  extend ActiveSupport::Concern
+
+  def index
+    instance_variable_set "@#{plural}", find_all
+  end
+
+  def new
+    instance_variable_set "@#{singular}", self.class.resource_class.new
+  end
+
+  def show
+    instance_variable_set "@#{singular}", find_one
+  end
+
+  def edit
+    instance_variable_set "@#{singular}", find_one
+  end
+
+  def create
+    create! do
+      redirect_to({ action: :index }, notice: "#{humanized} created successfully")
+    end
+  end
+
+  def update
+    update! do
+      redirect_to({ action: :index }, notice: "#{humanized} updated successfully")
+    end
+  end
+
+  def destroy
+    destroy! do
+      redirect_to({ action: :index }, notice: "#{humanized} removed successfully")
+    end
+  end
+
+  def enable
+    enable! do
+      redirect_to({ action: :index }, notice: "#{humanized} enabled")
+    end
+  end
+
+  def disable
+    disable! do
+      redirect_to({ action: :index }, notice: "#{humanized} disabled")
+    end
+  end
+
+  def destroy!
+    resource = find_one
+    resource.destroy
+    yield resource
+  end
+
+  def create!
+    resource = self.class.resource_class.new(permitted_params)
+    instance_variable_set "@#{singular}", resource
+    if resource.save
+      yield resource
+    else
+      render :new
+    end
+  end
+
+  def update!
+    resource = find_one
+    instance_variable_set "@#{singular}", resource
+    if resource.update_attributes(permitted_params)
+      yield resource
+    else
+      render :edit
+    end
+  end
+
+  def enable!
+    resource = find_one
+    resource.update!(enabled: true)
+    yield resource
+  end
+
+  def disable!
+    resource = find_one
+    resource.update!(enabled: false)
+    yield resource
+  end
+
+  protected
+
+  def find_one
+    self.class.resource_class.find(params[:id])
+  end
+
+  def find_all
+    self.class.resource_class.all
+  end
+
+  private
+
+  def singular
+    self.class.singular_resource_name
+  end
+
+  def plural
+    self.class.plural_resource_name
+  end
+
+  def humanized
+    self.class.human_resource_name
+  end
+
+  module ClassMethods
+    def set_resource_class(klass)
+      @resource_class = klass
+    end
+
+    def resource_class
+      @resource_class ||= Object.const_get(name.gsub(/Controller$/, '').demodulize.classify)
+    end
+
+    def set_singular_resource_name(name)
+      @singular_resource_name = name
+    end
+
+    def singular_resource_name
+      return @singular_resource_name if @singular_resource_name
+      @singular_resource_name = resource_class.name.underscore
+    end
+
+    def set_plural_resource_name(name)
+      @plural_resource_name = name
+    end
+
+    def plural_resource_name
+      @plural_resource_name ||= ActiveSupport::Inflector.pluralize(singular_resource_name)
+    end
+
+    def human_resource_name
+      singular_resource_name.humanize.titlecase
+    end
+  end
+end
+RUBY
+
+####################################
+# ADMIN BASE CONTROLLER
+####################################
+
+file 'app/controllers/admin/base_controller.rb', <<-'RUBY'
+module Admin
+  class BaseController < ApplicationController
+    include AdminAuthenticable
+    # include AdminSource
+    before_action :authenticate!
+    # before_action :ensure_admin_domain
+
+    layout 'admin'
+  end
+end
+RUBY
+
+####################################
+# ADMIN SESSIONS CONTROLLER
+####################################
+
+file 'app/controllers/admin/sessions_controller.rb', <<-'RUBY'
+module Admin
+  class SessionsController < ApplicationController
+    # include AdminSource
+    # before_action :ensure_admin_domain
+
+    layout false
+
+    def new; end
+
+    def create
+      if params[:password] == ENV['ADMIN_PASSWORD']
+        session[:logged_in] = true
+        redirect_to session.delete(:return_to) || admin_root_path
+      else
+        @error = true
+        render action: "new"
+      end
+    end
+
+    def destroy
+      session[:logged_in] = nil
+      redirect_to [:new, :admin, :sessions]
+    end
+  end
+end
+RUBY
+
+file 'app/views/admin/sessions/new.haml', <<-HAML
+!!!
+%html
+  %head
+    %title #{app_title}
+    = stylesheet_link_tag    "admin"
+    = javascript_include_tag "admin"
+    = csrf_meta_tags
+
+  %body#login
+    .container
+      .col-sm-6.col-sm-offset-3
+        = form_tag [:admin, :sessions], class: "form-signin" do
+          %h2.form-signin-heading Please sign in
+          .form-group{ class: @error && "has-error" }
+            %input.form-control(type="password" placeholder="Password" name="password")
+          %button.btn.btn-lg.btn-primary.btn-block{ type: "submit" } Sign in
+HAML
+
+####################################
+# ADMIN STYLESHEET
+####################################
+
+file 'app/assets/stylesheets/admin.scss', <<-'SCSS'
+@import "bootstrap-sprockets";
+@import "bootstrap";
+SCSS
+
+file 'app/assets/javascripts/admin.js.es6', <<-'JAVASCRIPT'
+// require almond
+//= require jquery
+//= require jquery-ujs
+// require bootstrap/collapse
+// require bootstrap/dropdown
+// require bootstrap/alert
+// require bootstrap/tooltip
+// require bootstrap/popover
+JAVASCRIPT
+
+####################################
+# GITIGNORES
 ####################################
 
 after_bundle do
@@ -502,4 +777,31 @@ after_bundle do
   run('echo .env >> .gitignore')
   run('echo /.vagrant/ >> .gitignore')
   run('echo .ruby-gemset >> .gitignore')
+end
+
+####################################
+# PROCFILE
+####################################
+
+file 'Procfile', <<-'TXT'
+  web: bin/start-nginx bundle exec puma -C config/puma.rb
+TXT
+
+####################################
+# HEROKU REMOTES
+####################################
+
+after_bundle do
+  git :init
+
+  %w(production staging dev).each do |env|
+    next unless yes?("Link to #{env} Heroku app?")
+    default_app_name = app_name
+    default_app_name += "-#{env}" unless env == 'production'
+    heroku_app_name = ask('What is the app named?', default: default_app_name)
+    run "heroku git:remote -a #{heroku_app_name} -r #{env}"
+    run "heroku buildpacks:set --index 1 heroku/ruby -r #{env}"
+    run "heroku buildpacks:set --index 2 https://github.com/gunpowderlabs/buildpack-ruby-rake-deploy-tasks -r #{env}"
+    run "heroku buildpacks:set --index 3 https://github.com/beanieboi/nginx-buildpack -r #{env}"
+  end
 end

@@ -13,15 +13,15 @@ Like this:
 ### TODO
 
 - [ ] add rspec config file and helpers. maybe run rspec-rails generator?
-- [ ] add admin scss, add to assets
+- [x] add admin scss, add to assets
 - [x] generate application.rb to autoload services dir, make empty services dir
 - [x] generate development.rb, staging.rb, production.rb based on ones used on prior projects
-- [ ] add admin login and routes? add simple_crud and other admin mixins
-- [ ] add admin view templates
-- [ ] prompt to add heroku remotes
+- [x] add admin login and routes? add simple_crud and other admin mixins
+- [x] add admin view templates
+- [x] prompt to add heroku remotes
 - [ ] trash secrets.yml and other rails junk we don't need
-- [ ] add example.env and .env (ignored) and update database.yml
-- [ ] maybe add heroku buildpack and update Procfile
+- [x] add example.env and .env (ignored) and update database.yml
+- [x] maybe add heroku buildpack and update Procfile
 - [x] puma + puma worker killer
 - [x] nginx config
 - [x] newrelic config
