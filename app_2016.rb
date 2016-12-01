@@ -70,19 +70,24 @@ group :development, :test do
 end
 
 group :test do
-  gem 'database_cleaner'
   gem 'timecop'
   gem 'webmock'
 end
 RUBY
 
 ####################################
+# REMOVE SECRETS.YML
+####################################
+
+run 'rm config/secrets.yml'
+
+####################################
 # DOTENV
 ####################################
 
-dotenv = <<-'BASH'
-DEVISE_SECRET=FILL_ME_IN
-SECRET_KEY_BASE=FILL_ME_IN
+dotenv = <<-BASH
+DEVISE_SECRET=#{SecureRandom.hex(64)}
+SECRET_TOKEN=#{SecureRandom.hex(64)}
 
 AWS_REGION=us-east-1
 AWS_ACCESS_KEY_ID=FILL_ME_IN
@@ -90,15 +95,42 @@ AWS_SECRET_ACCESS_KEY=FILL_ME_IN
 AWS_S3_BUCKET_NAME=FILL_ME_IN
 BUCKET_CDN_HOST=FILL_ME_IN
 
+DATABASE_URL=postgres://localhost/#{app_name}_development
+TEST_DATABASE_URL=postgres://localhost/#{app_name}_test
+
 SENTRY_DSN=FILL_ME_IN
 SENDGRID_PASSWORD=FILL_ME_IN
 SENDGRID_USERNAME=FILL_ME_IN
 
-MAILER_DEFAULT_HOST=localhost:3000
+APPLICATION_HOST=localhost:3000
 BASH
 
 file '.env', dotenv
 file 'example.env', dotenv
+
+####################################
+# DATABASE.YML
+####################################
+
+file 'config/database.yml', <<-'YAML', force: true
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  min_messages: warning
+  pool: <%= ENV['MAX_THREADS'] || 10 %>
+  reaping_frequency: <%= ENV['DB_REAPING_FREQUENCY'] || 10 %>
+  timeout: 5000
+  url: <%= ENV['DATABASE_URL'] %>
+
+development: *default
+
+test:
+  <<: *default
+  url: <%= ENV['TEST_DATABASE_URL'] %>
+
+production: *default
+staging: *default
+YAML
 
 ####################################
 # DEVELOPMENT ENVIRONMENT
@@ -128,7 +160,6 @@ Rails.application.configure do
   config.assets.debug = true
   config.assets.quiet = true
   config.action_view.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = { host: "localhost:3000" }
 end
 RUBY
 
@@ -209,7 +240,7 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -224,9 +255,10 @@ file 'config/environments/staging.rb', live_config, force: true
 ####################################
 
 environment <<-'RUBY'
+    config.secret_token = ENV.fetch('SECRET_TOKEN')
     config.autoload_paths <<  Rails.root.join('app','services')
     config.autoload_paths <<  Rails.root.join('app','uploaders')
-    config.action_mailer.default_url_options = { host: ENV['HOST_URL'] }
+    config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
     config.assets.quiet = true
     config.generators do |generate|
       generate.helper false
@@ -240,7 +272,7 @@ environment <<-'RUBY'
     end
     config.action_controller.action_on_unpermitted_parameters = :raise
 
-    Rails.application.routes.default_url_options[:host] = ENV['HOST_URL']
+    Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
 RUBY
 
 ####################################
