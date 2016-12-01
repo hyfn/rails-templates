@@ -530,7 +530,7 @@ generate('rspec:install')
 # ADMIN AUTH
 ####################################
 
-file 'app/controllers/concerns/simple_authenticable.rb', <<-'RUBY'
+file 'app/controllers/concerns/admin_authenticable.rb', <<-'RUBY'
 module AdminAuthenticable
   def authenticate!
     return if session[:logged_in].present?
