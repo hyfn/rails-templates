@@ -1,7 +1,5 @@
 # HYFN Rails Templates
 
-Well just template, singular for now.
-
 ## app_2016.rb
 
 Rails app with es6 and a bootstrap admin.
@@ -28,7 +26,7 @@ Like this:
 
 ## admin_2013.rb
 
-For historical interest
+Of historical interest only.
 
 Build a rails app from it like this:
 

@@ -494,6 +494,10 @@ YAML
 
 generate('rspec:install')
 
+####################################
+# ADMIN AUTH
+####################################
+
 file 'app/controllers/concerns/simple_authenticable.rb', <<-'RUBY'
 module AdminAuthenticable
   def authenticate!
