@@ -6,7 +6,7 @@ Rails app with es6, Bootstrap admin, Heroku nginx config
 
 Run like this:
 
-    rails new APP_NAME -d postgresql -J -C --skip-listen --skip-turbolinks -T -m https://raw.github.com/hyfn/rails-templates/master/hyfn-admin-heroku.rb
+    rails new APP_NAME -d postgresql -J -C --skip-listen --skip-turbolinks -T -m  https://raw.github.com/hyfn/rails-templates/master/app_2016.rb
 
 Or for local:
 
