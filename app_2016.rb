@@ -321,55 +321,61 @@ Rails/Output:
   Exclude:
     - 'db/**/seeds.rb'
     - 'lib/tasks/**/*'
-Metrics/BlockLength:
-  Exclude:
-    - 'db/**/seeds.rb'
-    - 'lib/tasks/**/*'
+Style/GuardClause:
+  MinBodyLength: 4
 Style/Documentation:
   Enabled: false
 Rails:
   Enabled: true
 Style/FrozenStringLiteralComment:
   Enabled: false
-Metrics/AbcSize:
-  Enabled: false
-Metrics/MethodLength:
-  Enabled: false
-Metrics/ClassLength:
-  Enabled: false
-Style/ClassAndModuleChildren:
+Metrics:
   Enabled: false
 Metrics/LineLength:
+  Enabled: true
   Max: 120
+Style/ClassAndModuleChildren:
+  Enabled: false
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
-Metrics/CyclomaticComplexity:
-  Enabled: false
 Style/AccessorMethodName:
   Enabled: false
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
+  Exclude:
+    - db/**/*.rb
+    - config/**/*.rb
+    - spec/**/*.rb
 Style/SpaceBeforeBlockBraces:
   Exclude:
-    - 'spec/**/**'
+    - 'spec/**/*.rb'
 Style/SpaceInsideBlockBraces:
   Exclude:
-    - 'spec/**/**'
+    - 'spec/**/*.rb'
 Style/DoubleNegation:
   Enabled: false
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/**'
+    - 'spec/**/*.rb'
 Bundler/OrderedGems:
   Enabled: false
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Style/MultilineMethodCallBraceLayout:
+  Enabled: false
+Style/FirstParameterIndentation:
+  EnforcedStyle: consistent
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Rails/SafeNavigation:
+  Enabled: true
 AllCops:
   Exclude:
     - db/schema.rb
-    - config/environments/**
-    - db/migrate/**
-    - bin/**
+    - db/migrate/**/*.rb
+    - bin/**/*.rb
   TargetRubyVersion: 2.3
 YAML
 
