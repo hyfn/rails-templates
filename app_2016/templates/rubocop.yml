@@ -1,0 +1,62 @@
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/Output:
+  Exclude:
+    - 'db/**/seeds.rb'
+    - 'lib/tasks/**/*'
+Metrics/BlockLength:
+  Exclude:
+    - 'db/**/seeds.rb'
+    - 'lib/tasks/**/*'
+Style/Documentation:
+  Enabled: false
+Rails:
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: true
+  Max: 120
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+Style/AccessorMethodName:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: true
+  Exclude:
+    - db/**/*.rb
+    - config/**/*.rb
+    - spec/**/*.rb
+Style/SpaceBeforeBlockBraces:
+  Exclude:
+    - 'spec/**/*.rb'
+Style/SpaceInsideBlockBraces:
+  Exclude:
+    - 'spec/**/*.rb'
+Style/DoubleNegation:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+Bundler/OrderedGems:
+  Enabled: false
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Style/FirstParameterIndentation:
+  EnforcedStyle: consistent
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Rails/SafeNavigation:
+  Enabled: true
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - db/migrate/**/*.rb
+    - bin/**/*.rb
+  TargetRubyVersion: 2.3
