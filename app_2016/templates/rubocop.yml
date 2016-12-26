@@ -4,10 +4,8 @@ Rails/Output:
   Exclude:
     - 'db/**/seeds.rb'
     - 'lib/tasks/**/*'
-Metrics/BlockLength:
-  Exclude:
-    - 'db/**/seeds.rb'
-    - 'lib/tasks/**/*'
+Style/GuardClause:
+  MinBodyLength: 4
 Style/Documentation:
   Enabled: false
 Rails:
@@ -48,6 +46,8 @@ Bundler/OrderedGems:
   Enabled: false
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
+Style/MultilineMethodCallBraceLayout:
+  Enabled: false
 Style/FirstParameterIndentation:
   EnforcedStyle: consistent
 Style/AlignParameters:
