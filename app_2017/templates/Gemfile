@@ -21,11 +21,8 @@ gem 'sentry-raven'
 
 # Frontend Common
 gem 'webpacker', github: 'rails/webpacker'
-# gem 'sass-rails', '~> 5.0'
-# gem 'autoprefixer-rails'
 
 # Admin
-# gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bootstrap_form'
 gem 'kaminari'
 gem 'haml'

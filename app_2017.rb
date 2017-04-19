@@ -142,16 +142,6 @@ file 'app/controllers/concerns/admin_authenticable.rb', <<~'RUBY'
 RUBY
 
 ####################################
-# ADMIN ASSETS
-####################################
-
-# file 'config/initializers/assets.rb', <<~'RUBY', force: true
-# Rails.application.config.assets.version = ENV["ASSETS_VERSION"] || '1.0'
-
-# Add additional assets to the asset load path
-# Rails.application.config.assets.paths << Emoji.images_path
-
-####################################
 # ADMIN ROUTES
 ####################################
 
@@ -192,7 +182,7 @@ file 'app/controllers/admin/sessions_controller.rb', tt('sessions_controller.rb'
 file 'app/views/admin/sessions/new.haml', tt('new.haml')
 
 ####################################
-# ADMIN STYLESHEET
+# ADMIN ASSETS
 ####################################
 
 after_bundle do

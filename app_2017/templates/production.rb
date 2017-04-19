@@ -18,10 +18,6 @@ Rails.application.configure do
 
   config.x.webpacker[:digesting] = true
 
-  # config.assets.css_compressor = :sass
-  # config.assets.compile = false
-  # config.assets.digest = true
-
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'

@@ -25,6 +25,7 @@ To Do:
 - [ ] fix app_title thing in new.haml
 - [ ] better webpacker instructions
 - [ ] slugignore yarn.lock
+- [ ] maybe more babel defaults (see tostitos-cinco or eggerator?)
 
 ## app_2016.rb
 
@@ -60,7 +61,7 @@ Or for local:
   - [x] Removes secrets.yml, use ENV var
   - [x] Simplify database.yml, use ENV vars
   - [ ] Add: `awesome_print`, `bundler_audit`, better rubocop rules
-  - [ ] Instructions for webpack stuff 
+  - [ ] Instructions for webpack stuff
 - Sets up admin skeleton
   - [x] Bootstrap, haml, kaminari
   - [x] Admin SCSS and JS

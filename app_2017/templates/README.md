@@ -16,7 +16,7 @@ TODO:
   - `brew install yarn`
   - `brew services start postgres`
   - `gem install bundler foreman`
-3. Fill in the `.env` file with real values. These might come from Heroku or one of your fellow developers.
+3. Fill in the `.env.local` file with real values. These might come from Heroku or one of your fellow developers.
 4. Make sure you have the most current version of X-Code Command Line Tools
   - `xcode-select --install`
 5. Install gems
