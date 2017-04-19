@@ -13,7 +13,7 @@ module Admin
         redirect_to session.delete(:return_to) || admin_root_path
       else
         @error = true
-        render action: "new"
+        render action: 'new'
       end
     end
 

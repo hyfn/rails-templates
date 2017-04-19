@@ -8,48 +8,95 @@ TODO:
 
 ### First Time
 
-1. Get Ruby 2.3.1 installed
-  - `rvm install 2.3.1` if you have [RVM](https://rvm.io/)
+1. Get Ruby 2.4.1 installed
+  - `rvm install 2.4.1` if you have [RVM](https://rvm.io/)
   - `brew install ruby` if you want to use homebrew
 2. Install some dependencies
   - `brew install postgres`
-  - `brew install imagemagick`
+  - `brew install yarn`
   - `brew services start postgres`
+  - `gem install bundler foreman`
 3. Fill in the `.env` file with real values. These might come from Heroku or one of your fellow developers.
 4. Make sure you have the most current version of X-Code Command Line Tools
   - `xcode-select --install`
 5. Install gems
-  - `bundle install`
+  - Ruby: `bundle install`
+  - Javascript: `yarn install`
 6. Get your app database set up
-  - `bin/rake db:create db:migrate db:seed
+  - `bin/rails db:create db:migrate db:seed`
 
 ## Running the App Locally
 
 1. Each time you pull
   - `bundle install`
-  - `rake db:migrate`
+  - `yarn install`
+  - `bin/rails db:migrate`
 2. Run it
+  - In two terminal tabs:
+    - `bin/rails s` (in one terminal tab)
+    - `yarn start` (in another terminal tab)
+  - In one terminal tab:
+    - `foreman start -f Procfile.dev`
   - `bin/rails s`
   - Navigate to http://localhost:3000/
 
 ## Tasks
 
-_TODO: Fill me in_
+### Add/Remove Frontend Depencies
+
+- Add: `yarn add xyz`
+- Remove: `yarn remove xyz`
+
+### Add/Remove Node Depencies
+
+- Add: `yarn add xyz-loader --dev`
+- Remove: `yarn remove xyz-loader --dev`
+
+### Linting
+
+Check and fix style errors and such
+
+**Ruby**
+
+    bin/rubocop -D
+    bin/rubocop -D -a # autocorrect
+
+**Javascript**
+
+    yarn run eslint
+    yarn run fix # autocorrect
+
+### Tests
+
+  Ruby: `bin/rspec`
+
+## Deployment
+
+### Prep
+
+_TODO: Add real values_
+
+- Add staging remote: `heroku git:remote -r staging -a <app_name>`
+- Add production remote: `heroku git:remote -r production -a <app_name>`
+
+### Deploy
+
+  - Staging: `git push staging develop:master` (where `develop` is the branch you want to deploy)
+  - Production: `git push production master`
+
+### Other Useful Heroku Stuff
+
+  - Run a console: `heroku run rails c -r staging`
+  - Run a shell: `heroku run bash -r staging`
+  - Tail the logs: `heroku logs -t -r staging`
+  - Launch the site: `heroku open -r staging`
 
 ## Syncing Data
 
 _TODO: Fill me in_
 
-## Structure / Guidelines
+### Frontend Setup
 
-- Indent with soft tabs (two spaces.)
-- Frontend files are in the `app/assets` directory.
-- Within those directories, organize files however you like.
-- You can use es6 and `import` / `export` in js files.
-- Add third-party dependencies to the Gemfile and `application.js`. They will generally be included in the global JS scope.
-- You can use `@import` in scss files.
-- HTML files are stored in `app/views`.
-- They use erb, see: http://guides.rubyonrails.org/layouts_and_rendering.html
-- Don't hardcode asset URLs anywhere. Instead use asset helpers, like this:
-    - HTML: `<%= image_tag 'image.png', alt: "image" %>` or `<img src="<%= image_path('image.png') %>" alt="image">`
-    - SCSS: `background-image: image-url('image.png');`
+- Javascript is handled through webpack (via [Webpacker](https://github.com/rails/webpacker)). It lives in `app/javascript`.
+- package.json is located in `package.json`. Use `yarn` to do yarn/npm things.
+- Webpack config is in `config/webpack` directory. Entry points are in `app/javascript/packs`.

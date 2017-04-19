@@ -1,3 +1,4 @@
+RAILS_ENV = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
 
 workers Integer(ENV['WEB_CONCURRENCY'] || 1)
 threads_count = Integer(ENV['MAX_THREADS'] || 10)
@@ -7,7 +8,9 @@ preload_app!
 
 rackup DefaultRackup
 bind 'unix:///tmp/nginx.socket'
-environment ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'production'
+environment RAILS_ENV
+
+worker_timeout 3600 if RAILS_ENV == 'development'
 
 before_fork do
   require 'puma_worker_killer'

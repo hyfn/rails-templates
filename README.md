@@ -1,5 +1,31 @@
 # HYFN Rails Templates
 
+## app_2017.rb
+
+Rails app with Webpacker, Bootstrap admin, Heroku nginx config.
+
+Remote:
+
+    rails new testapp -d postgresql -J -C --skip-listen --skip-turbolinks -S -T -m https://raw.github.com/hyfn/rails-templates/master/app_2017.rb
+
+Local:
+
+    rails new testapp -d postgresql -J -C --skip-listen --skip-turbolinks -S -T -m ./rails-templates/app_2017.rb
+
+To Do:
+- [x] Webpacker
+- [ ] Clean up package.json - add name and private, etc
+- [ ] eslint
+- [ ] js samples
+- [x] .env.local / .env stuff
+- [ ] memcached / memcachier
+- [ ] circle.yml
+- [x] admin js/css
+- [x] remove sprockets entirely
+- [ ] fix app_title thing in new.haml
+- [ ] better webpacker instructions
+- [ ] slugignore yarn.lock
+
 ## app_2016.rb
 
 Rails app with es6, Bootstrap admin, Heroku nginx config
