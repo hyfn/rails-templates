@@ -43,6 +43,8 @@ Or for local:
 - Good frontend defaults
   - [x] ES6, sprockets, almond, uglifier, autoprefixer, normalize, JQuery, bower
   - [ ] Sets up some amd boilerplate for almond
+  - [ ] Webpacker stuff with better defaults
+  - [ ] Optional: React, Vue
 - Adds monitoring (New Relic, Sentry)
   - [x] New Relic config
 - Testing setup
@@ -57,18 +59,26 @@ Or for local:
   - [x] Add .env and example.env
   - [x] Removes secrets.yml, use ENV var
   - [x] Simplify database.yml, use ENV vars
+  - [ ] Add: `awesome_print`, `bundler_audit`, better rubocop rules
+  - [ ] Instructions for webpack stuff 
 - Sets up admin skeleton
   - [x] Bootstrap, haml, kaminari
   - [x] Admin SCSS and JS
   - [x] Admin sessions controller, routes, views
   - [x] Admin controller mixins
   - [ ] Admin layout, menus, dashboard?
+  - [ ] Convert asset-pipeline to Webpack
 - Heroku deployment
   - [x] Puma config with threads/workers set via ENV
   - [x] Puma worker killer
   - [x] Heroku nginx config, Procfile, Puma config updates
   - [x] Prompt to associate with Heroku apps, adds buildpacks
   - [x] Generates production/staging configs
+- Modularize
+  - [ ] API template vs. site template
+  - [ ] Make admin optional
+  - [ ] Pipeline managed CSS/Media vs. Webpack managed
+  - [ ] React vs. Vue vs. Neither
 
 ## admin_2013.rb
 
