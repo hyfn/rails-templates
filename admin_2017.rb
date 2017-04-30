@@ -1,3 +1,22 @@
+require 'fileutils'
+require 'shellwords'
+
+def source_dir
+  return File.dirname(__FILE__) unless __FILE__ =~ %r{\Ahttps?://}
+
+  tmpdir = Dir.mktmpdir('rails-template-')
+  at_exit { FileUtils.remove_entry(tmpdir) }
+
+  git clone: [
+    '--quiet',
+    'https://github.com/hyfn/rails-templates.git',
+    tmpdir,
+  ].map(&:shellescape).join(' ')
+  tmpdir
+end
+
+source_paths.unshift(File.join(source_dir, 'admin_2017'))
+
 ####################################
 # GEMS
 ####################################

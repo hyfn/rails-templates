@@ -1,5 +1,5 @@
-require "fileutils"
-require "shellwords"
+require 'fileutils'
+require 'shellwords'
 
 app_title = camelized.underscore.humanize.titlecase
 CONTEXT = instance_eval('binding')
@@ -15,7 +15,7 @@ def source_dir
   return File.dirname(__FILE__) unless __FILE__ =~ %r{\Ahttps?://}
 
   tmpdir = Dir.mktmpdir('rails-template-')
-  at_exit { FileUtils.remove_entry(tempdir) }
+  at_exit { FileUtils.remove_entry(tmpdir) }
 
   git clone: [
     '--quiet',
