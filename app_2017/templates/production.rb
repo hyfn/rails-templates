@@ -16,7 +16,10 @@ Rails.application.configure do
     }
   end
 
-  config.x.webpacker[:digesting] = true
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  config.action_controller.asset_host = "https://#{ENV['CDN_HOST']}"
+
+  config.action_controller.default_url_options = { host: ENV['APPLICATION_HOST'] }
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -38,20 +41,12 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "https://#{ENV['CDN_HOST']}"
-
-  config.action_controller.default_url_options = { host: ENV['APPLICATION_HOST'] }
-
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
-
-  # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
 
   # config.action_mailer.smtp_settings = {
   #   address: 'smtp.sendgrid.net',
@@ -71,4 +66,7 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
+
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
 end

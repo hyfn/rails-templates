@@ -1,7 +1,7 @@
 # TODO: document
 # TODO: automatically specify params.require(:singular)
 # TODO: overridable redirect target (same page vs. index)
-module SimpleCrud
+module AdminCrud
   extend ActiveSupport::Concern
 
   def index

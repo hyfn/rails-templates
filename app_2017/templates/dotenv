@@ -8,9 +8,11 @@ SECRET_TOKEN=#{SecureRandom.hex(64)}
 
 AWS_REGION=us-east-1
 AWS_ACCESS_KEY_ID=FILL_ME_IN
-AWS_SECRET_ACCESS_KEY=FILL_ME_IN
 AWS_S3_BUCKET_NAME=FILL_ME_IN
 BUCKET_CDN_HOST=FILL_ME_IN
+
+# DON'T ADD IT HERE! Copy this file to .env.local and add it there
+# AWS_SECRET_ACCESS_KEY=FILL_ME_IN
 
 DATABASE_URL=postgres://localhost/#{app_name}_development
 TEST_DATABASE_URL=postgres://localhost/#{app_name}_test

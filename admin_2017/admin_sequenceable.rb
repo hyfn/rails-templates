@@ -1,16 +1,16 @@
 # Requires SimpleCrud be included as well
-module SimpleEnableable
+module AdminSequenceable
   extend ActiveSupport::Concern
 
-  def enable!
+  def promote!
     resource = find_one
-    resource.update!(enabled: true)
+    resource.promote!
     yield resource
   end
 
-  def disable!
+  def demote!
     resource = find_one
-    resource.update!(enabled: false)
+    resource.demote!
     yield resource
   end
 end

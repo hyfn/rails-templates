@@ -7,7 +7,7 @@ threads threads_count, threads_count
 preload_app!
 
 rackup DefaultRackup
-bind 'unix:///tmp/nginx.socket'
+bind RAILS_ENV == 'development' ? 'tcp://localhost:3000' : 'unix:///tmp/nginx.socket'
 environment RAILS_ENV
 
 worker_timeout 3600 if RAILS_ENV == 'development'
@@ -15,6 +15,7 @@ worker_timeout 3600 if RAILS_ENV == 'development'
 before_fork do
   require 'puma_worker_killer'
   PumaWorkerKiller.enable_rolling_restart(3600)
+  ActiveRecord::Base.connection_pool.disconnect!
 end
 
 on_worker_boot do

@@ -1,31 +1,20 @@
+def source_paths
+  [File.expand_path(File.join(File.dirname(__FILE__), 'admin_2017'))]
+end
+
 ####################################
 # GEMS
 ####################################
 
 gem 'bootstrap_form'
 gem 'kaminari'
-gem 'haml'
+gem 'haml', '~> 5.0'
 
 ####################################
 # CONFIG
 ####################################
 
-append_to_file('.env', 'ADMIN_PASSWORD=password')
-
-####################################
-# AUTH
-####################################
-
-file 'app/controllers/concerns/admin_authenticable.rb', <<~'RUBY'
-  module AdminAuthenticable
-    def authenticate!
-      return if session[:logged_in].present?
-
-      session[:return_to] = request.url
-      redirect_to [:new, :admin, :sessions]
-    end
-  end
-RUBY
+append_to_file '.env', 'ADMIN_PASSWORD=password'
 
 ####################################
 # ROUTES
@@ -39,14 +28,30 @@ route <<-'RUBY'
 RUBY
 
 ####################################
-# SIMPLE CRUD
+# CONTROLLER MIXINS
 ####################################
 
-file 'app/controllers/concerns/simple_crud.rb', tt('simple_crud.rb')
+file 'app/controllers/concerns/admin_authenticable.rb', <<~'RUBY'
+  module AdminAuthenticable
+    def authenticate!
+      return if session[:logged_in].present?
+
+      session[:return_to] = request.url
+      redirect_to [:new, :admin, :sessions]
+    end
+  end
+RUBY
+
+copy_file 'admin_crud.rb', 'app/controllers/concerns/admin_crud.rb'
+copy_file 'admin_enableable.rb', 'app/controllers/concerns/admin_enableable.rb'
+copy_file 'admin_pagination.rb', 'app/controllers/concerns/admin_pagination.rb'
+copy_file 'admin_sequenceable.rb', 'app/controllers/concerns/admin_sequenceable.rb'
 
 ####################################
-# BASE CONTROLLER
+# CONTROLLERS
 ####################################
+
+copy_file 'admin.haml', 'app/views/layouts/admin.haml'
 
 file 'app/controllers/admin/base_controller.rb', <<~'RUBY'
   module Admin
@@ -61,18 +66,11 @@ file 'app/controllers/admin/base_controller.rb', <<~'RUBY'
   end
 RUBY
 
-####################################
-# SESSIONS CONTROLLER
-####################################
+copy_file 'sessions_controller.rb', 'app/controllers/admin/sessions_controller.rb'
+copy_file 'new.haml', 'app/views/admin/sessions/new.haml'
 
-file 'app/controllers/admin/sessions_controller.rb', tt('sessions_controller.rb')
-file 'app/views/admin/sessions/new.haml', tt('new.haml')
-
-####################################
-# SESSIONS CONTROLLER
-####################################
-
-
+copy_file 'dashboard_controller.rb', 'app/controllers/admin/dashboard_controller.rb'
+copy_file 'dashboard.haml', 'app/views/admin/dashboard/show.haml'
 
 ####################################
 # ASSETS
@@ -93,4 +91,24 @@ file 'app/javascript/packs/admin.js', <<~'JAVASCRIPT'
   import 'admin/admin.scss'
   import * as $ from 'jquery'
   import 'jquery-ujs'
+  import Turbolinks from 'turbolinks'
+
+  // TODO: fix these
+  // import 'bootstrap/js/dropdown'
+  // import 'bootstrap/js/modal'
+  // import 'bootstrap/js/tooltip'
+  // import 'bootstrap/js/popover'
+  // import 'bootstrap/js/alert'
+  // import 'bootstrap/js/transition'
+  // import 'bootstrap/js/carousel'
+
+  Turbolinks.start()
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // once ever
+  })
+
+  document.addEventListener('turbolinks:load', () => {
+    // every page
+  })
 JAVASCRIPT

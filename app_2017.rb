@@ -58,9 +58,10 @@ file 'config/environments/staging.rb', tt('production.rb'), force: true
 ####################################
 
 environment <<-'RUBY'
+
     config.secret_token = ENV.fetch('SECRET_TOKEN')
-    config.autoload_paths <<  Rails.root.join('app','services')
-    config.autoload_paths <<  Rails.root.join('app','uploaders')
+    config.autoload_paths <<  Rails.root.join('app', 'services')
+    config.autoload_paths <<  Rails.root.join('app', 'uploaders')
     config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
     config.generators do |generate|
       generate.helper false
@@ -72,6 +73,7 @@ environment <<-'RUBY'
       generate.test_framework :rspec
       generate.view_specs false
     end
+
     config.action_controller.action_on_unpermitted_parameters = :raise
 
     Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
@@ -113,11 +115,12 @@ end
 # WEBPACKER
 ####################################
 
-remove_file 'app/assets'
+after_bundle do
+  remove_file 'app/assets'
 
-run 'yarn remove coffee-loader coffee-script'
-remove_file 'config/webpack/loaders/coffee.js'
-
+  run 'yarn remove coffee-loader coffee-script'
+  remove_file 'config/webpack/loaders/coffee.js'
+end
 
 ####################################
 # GITIGNORES
@@ -169,3 +172,5 @@ after_bundle do
   #   run "heroku buildpacks:set --index 4 https://github.com/hyfn/nginx-buildpack -r #{env}"
   # end
 end
+
+puts 'yo'
