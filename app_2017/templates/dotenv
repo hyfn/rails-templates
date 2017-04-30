@@ -3,8 +3,6 @@
 # Non-secret, shared stuff goes in here
 # Developer-specific and private stuff goes in .env.local
 
-ADMIN_PASSWORD=password
-
 DEVISE_SECRET=#{SecureRandom.hex(64)}
 SECRET_TOKEN=#{SecureRandom.hex(64)}
 

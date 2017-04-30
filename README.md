@@ -3,14 +3,13 @@
 ## app_2017.rb
 
 Rails app with Webpacker, Bootstrap admin, Heroku nginx config.
-
 Remote:
 
-    rails new testapp -d postgresql -J -C --skip-listen --skip-turbolinks -S -T -m https://raw.github.com/hyfn/rails-templates/master/app_2017.rb
+    rails new testapp -d postgresql --webpack -C -J -S -T --skip-coffee --skip-listen --skip-turbolinks -m https://raw.github.com/hyfn/rails-templates/master/app_2017.rb
 
 Local:
 
-    rails new testapp -d postgresql -J -C --skip-listen --skip-turbolinks -S -T -m ./rails-templates/app_2017.rb
+    rails new testapp -d postgresql --webpack -C -J -S -T --skip-coffee --skip-listen --skip-turbolinks -m ./rails-templates/app_2017.rb
 
 To Do:
 - [x] Webpacker

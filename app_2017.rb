@@ -113,90 +113,11 @@ end
 # WEBPACKER
 ####################################
 
-run 'rm -rf app/assets'
+remove_file 'app/assets'
 
-after_bundle do
-  rails_command 'webpacker:install'
-  run 'yarn remove coffee-loader coffee-script'
-  run 'yarn add jquery jquery-ujs bootstrap-sass'
-  run 'rm config/webpack/loaders/coffee.js'
+run 'yarn remove coffee-loader coffee-script'
+remove_file 'config/webpack/loaders/coffee.js'
 
-  insert_into_file 'config/webpack/shared.js', after: '  plugins: [' do
-    "new webpack.ProvidePlugin({jQuery: 'jquery'}),"
-  end
-end
-
-####################################
-# ADMIN AUTH
-####################################
-
-file 'app/controllers/concerns/admin_authenticable.rb', <<~'RUBY'
-  module AdminAuthenticable
-    def authenticate!
-      return if session[:logged_in].present?
-
-      session[:return_to] = request.url
-      redirect_to [:new, :admin, :sessions]
-    end
-  end
-RUBY
-
-####################################
-# ADMIN ROUTES
-####################################
-
-route <<-'RUBY'
-    namespace :admin do
-      resource :sessions, only: [:new, :create, :destroy]
-    end
-RUBY
-
-####################################
-# ADMIN SIMPLE CRUD
-####################################
-
-file 'app/controllers/concerns/simple_crud.rb', tt('simple_crud.rb')
-
-####################################
-# ADMIN BASE CONTROLLER
-####################################
-
-file 'app/controllers/admin/base_controller.rb', <<~'RUBY'
-  module Admin
-    class BaseController < ApplicationController
-      include AdminAuthenticable
-      # include AdminSource
-      before_action :authenticate!
-      # before_action :ensure_admin_domain
-
-      layout 'admin'
-    end
-  end
-RUBY
-
-####################################
-# ADMIN SESSIONS CONTROLLER
-####################################
-
-file 'app/controllers/admin/sessions_controller.rb', tt('sessions_controller.rb')
-file 'app/views/admin/sessions/new.haml', tt('new.haml')
-
-####################################
-# ADMIN ASSETS
-####################################
-
-after_bundle do
-  file 'app/javascript/admin/admin.scss', <<~'SCSS'
-    $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-    @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-  SCSS
-
-  file 'app/javascript/packs/admin.js', <<~'JAVASCRIPT'
-    import 'admin/admin.scss'
-    import * as $ from 'jquery'
-    import 'jquery-ujs'
-  JAVASCRIPT
-end
 
 ####################################
 # GITIGNORES

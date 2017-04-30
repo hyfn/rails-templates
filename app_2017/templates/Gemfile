@@ -3,9 +3,9 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 # Basics
-gem 'rails'
-gem 'pg'
-gem 'puma'
+gem 'rails', '~> 5.1.0'
+gem 'pg', '~> 0.18'
+gem 'puma', '~> 3.7'
 
 # Auth
 # gem 'devise'
@@ -20,12 +20,7 @@ gem 'newrelic_rpm'
 gem 'sentry-raven'
 
 # Frontend Common
-gem 'webpacker', github: 'rails/webpacker'
-
-# Admin
-gem 'bootstrap_form'
-gem 'kaminari'
-gem 'haml'
+gem 'webpacker'
 
 gem 'parallel', require: false
 
