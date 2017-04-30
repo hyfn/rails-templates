@@ -1,7 +1,3 @@
-def source_paths
-  [File.expand_path(File.join(File.dirname(__FILE__), 'admin_2017'))]
-end
-
 ####################################
 # GEMS
 ####################################
