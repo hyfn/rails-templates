@@ -22,6 +22,7 @@ or with `-m ./rails-templates/admin_2017.rb` if you've got it locally
 
 ### To Do
 
+- [ ] add a typescript generator
 - [ ] `yarn start` is wrong in README
 - [ ] make sure the JS build can be uglified
 - [ ] A new template for a particular client
