@@ -27,17 +27,15 @@ TODO:
 
 ## Running the App Locally
 
-1. Each time you pull
-  - `bundle install`
-  - `yarn install`
-  - `bin/rails db:migrate`
-2. Run it
+1. Update dependencies and database
+  - `bin/setup`
+  - `yarn`
+2. Run it. Either:
   - In two terminal tabs:
     - `bin/rails s` (in one terminal tab)
-    - `yarn start` (in another terminal tab)
-  - In one terminal tab:
-    - `foreman start -f Procfile.dev`
-  - `bin/rails s`
+    - `bin/webpack-dev-server` (in another terminal tab)
+  - OR in one terminal tab:
+    - `foreman -f Procfile.dev`
   - Navigate to http://localhost:3000/
 
 ## Tasks
