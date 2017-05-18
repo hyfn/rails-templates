@@ -28,6 +28,8 @@ or with `-m ./rails-templates/admin_2017.rb` if you've got it locally
 - [ ] A new template for a particular client
 - [x] Webpacker
 - [ ] Make bootstrap js work
+- [ ] Better rspec setup
+- [ ] Add pry-byebug
 - [ ] Clean up package.json - add name and private, etc
 - [ ] eslint
 - [ ] js samples

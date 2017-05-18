@@ -57,14 +57,14 @@ copy_file 'database.yml', 'config/database.yml', force: true
 # DEVELOPMENT ENVIRONMENT
 ####################################
 
-copy_file 'development.rb', 'config/development.rb', force: true
+copy_file 'development.rb', 'config/environments/development.rb', force: true
 
 ####################################
 # PRODUCTION / STAGING ENVIRONMENTS
 ####################################
 
-copy_file 'production.rb', 'config/production.rb', force: true
-copy_file 'production.rb', 'config/staging.rb', force: true
+copy_file 'production.rb', 'config/environments/production.rb', force: true
+copy_file 'production.rb', 'config/environments/staging.rb', force: true
 
 ####################################
 # APP CONFIG
