@@ -1,0 +1,14 @@
+%p
+  Dashboard goes here
+
+%p
+  Below is a demo of using an image from webpack assets directly
+  = image_tag(asset_pack_path 'images/test/1.jpg')
+
+%p
+  Below is a demo of the responsive helpers with a hardcoded image url
+  = picture_tag('https://railsgenerator-testapp.s3.amazonaws.com/sample_images/03290_formula1grandprix2013montecarlofever_2560x1440.jpg')
+
+%p
+  Below is a demo of responsive helpers using an image from uploaded images that use rake images:upload uploading app/javascript/images
+  = picture_tag(bucket_image_url 'test/2.jpg')

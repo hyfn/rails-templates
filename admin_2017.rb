@@ -2,17 +2,17 @@ require 'fileutils'
 require 'shellwords'
 
 def source_dir
-  return File.dirname(__FILE__) unless __FILE__ =~ %r{\Ahttps?://}
+	return File.dirname(__FILE__) unless __FILE__ =~ %r{\Ahttps?://}
 
-  tmpdir = Dir.mktmpdir('rails-template-')
-  at_exit { FileUtils.remove_entry(tmpdir) }
+	tmpdir = Dir.mktmpdir('rails-template-')
+	at_exit { FileUtils.remove_entry(tmpdir) }
 
-  git clone: [
-    '--quiet',
-    'https://github.com/hyfn/rails-templates.git',
-    tmpdir,
-  ].map(&:shellescape).join(' ')
-  tmpdir
+	git clone: [
+		'--quiet',
+		'https://github.com/hyfn/rails-templates.git',
+		tmpdir,
+	].map(&:shellescape).join(' ')
+	tmpdir
 end
 
 source_paths.unshift(File.join(source_dir, 'admin_2017'))
@@ -20,110 +20,135 @@ source_paths.unshift(File.join(source_dir, 'admin_2017'))
 ####################################
 # GEMS
 ####################################
-
-gem 'bootstrap_form'
-gem 'kaminari'
-gem 'haml', '~> 5.0'
+# Uncomments out gems in Gemfile
+[
+  "gem 'bootstrap_form'",
+  "gem 'kaminari'",
+  "gem 'haml'",
+  "gem 'devise'",
+  "gem 'carrierwave'",
+  "gem 'carrierwave-aws'",
+  "gem 'mini_magick'",
+  "gem 'rails-i18n'",
+  "gem 'i18n-tasks'",
+].each do |str|
+  gsub_file 'Gemfile', /# (#{str})/, '\1'
+end
+run 'bundle install'  # TODO better way to do this?
+run 'spring stop'
+generate('devise:install') ## TODO figure out how to get bundle and after_bundle to work...
+# after_bundle do
+# end
 
 ####################################
 # CONFIG
 ####################################
 
-append_to_file '.env', 'ADMIN_PASSWORD=password'
+append_to_file '.env' do
+	<<-'TEXT'
+IMAGE_RESIZE_URL=FILL_ME_IN
+# DON'T ADD IT HERE! Copy this file to .env.local and add it there
+# IMAGE_RESIZE_SECRET=FILL_ME_IN
+TEXT
+end
 
 ####################################
 # ROUTES
 ####################################
 
 route <<-'RUBY'
-    namespace :admin do
-      resource :sessions, only: [:new, :create, :destroy]
-      root to: 'dashboard#show'
-    end
+concern :enableable do
+		patch :enable, on: :member
+		patch :disable, on: :member
+	end
+
+	concern :sequenceable do
+		patch :promote, on: :member
+		patch :demote, on: :member
+		patch :reorder_all, on: :collection
+	end
+
+	namespace :admin do
+		resources :locations, concerns: [:enableable, :sequenceable]
+		resources :fake_things, concerns: [:enableable, :sequenceable]
+		root to: 'dashboard#show'
+	end
+
+	get :about, to: 'pages#about'
+	root to: 'pages#home'
 RUBY
 
 ####################################
-# CONTROLLER MIXINS
+# COPY CONFIG
 ####################################
 
-file 'app/controllers/concerns/admin_authenticable.rb', <<~'RUBY'
-  module AdminAuthenticable
-    def authenticate!
-      return if session[:logged_in].present?
+copy_file 'config/initializers/carrierwave.rb', 'config/initializers/carrierwave.rb'
 
-      session[:return_to] = request.url
-      redirect_to [:new, :admin, :sessions]
-    end
-  end
+environment <<~'RUBY'
+  # specify locales avaialable to rails-i18n gem
+  config.i18n.available_locales = [:en, :es]
 RUBY
-
-copy_file 'admin_crud.rb', 'app/controllers/concerns/admin_crud.rb'
-copy_file 'admin_enableable.rb', 'app/controllers/concerns/admin_enableable.rb'
-copy_file 'admin_pagination.rb', 'app/controllers/concerns/admin_pagination.rb'
-copy_file 'admin_sequenceable.rb', 'app/controllers/concerns/admin_sequenceable.rb'
+directory 'config/locales', 'config/locales'
 
 ####################################
-# CONTROLLERS
+# COPY STUB MIGRATIONS
 ####################################
-
-copy_file 'admin.haml', 'app/views/layouts/admin.haml'
-
-file 'app/controllers/admin/base_controller.rb', <<~'RUBY'
-  module Admin
-    class BaseController < ApplicationController
-      include AdminAuthenticable
-      # include AdminSource
-      before_action :authenticate!
-      # before_action :ensure_admin_domain
-
-      layout 'admin'
-    end
-  end
-RUBY
-
-copy_file 'sessions_controller.rb', 'app/controllers/admin/sessions_controller.rb'
-copy_file 'new.haml', 'app/views/admin/sessions/new.haml'
-
-copy_file 'dashboard_controller.rb', 'app/controllers/admin/dashboard_controller.rb'
-copy_file 'dashboard.haml', 'app/views/admin/dashboard/show.haml'
+directory 'db/migrate', 'db/migrate', recursive: true, verbose: true # TODO make other migrations not hard coded
+generate 'devise AdminUser'
+directory 'spec/fabricators', 'spec/fabricators', recursive: true, verbose: true
 
 ####################################
-# ASSETS
+# COPY APP CODE HIERARCHY
 ####################################
+directory 'app', 'app', recursive: true, verbose: true
 
-# insert_into_file 'config/webpack/shared.js', after: '  plugins: [' do
-#   "new webpack.ProvidePlugin({jQuery: 'jquery'}),"
-# end
+####################################
+# COPY LIB HIERARCHY
+####################################
+directory 'lib', 'lib', recursive: true, verbose: true
 
-run 'yarn add jquery jquery-ujs turbolinks bootstrap-sass'
+####################################
+# JS
+####################################
+run 'yarn add bootstrap@3 bootstrap-sass jquery jquery-ujs turbolinks'
 
-file 'app/javascript/admin/admin.scss', <<~'SCSS'
-  $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-  @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-SCSS
+####################################
+# APPEND TO EXISTING README
+####################################
+append_to_file 'README.md' do
+	<<-'TEXT'
+### I18n
+- This codebase uses yaml based i18n.  Two locales are configured: English `en` and Spanish `es`.  To adjust available locales, change `config.i18n.available_locales` in `config/application.rb`.
+- In the development gems there is https://github.com/glebm/i18n-tasks , this can be used to figure out which translations are missing, etc.
+- If database backed translations are required, check out other projects like Vita Coco or HPE for inspiration.
 
-file 'app/javascript/packs/admin.js', <<~'JAVASCRIPT'
-  import 'admin/admin.scss'
-  import * as $ from 'jquery'
-  import 'jquery-ujs'
-  import Turbolinks from 'turbolinks'
+### Assets
+Images and Fonts can be stored in `app/javascripts/images` and `app/javascript/fonts`.  Images that you want to be handled by webpack have to be manually imported/referenced within the JavaScript.
+Example: `import 'images/some_image.jpg`
 
-  // TODO: fix these
-  // import 'bootstrap/js/dropdown'
-  // import 'bootstrap/js/modal'
-  // import 'bootstrap/js/tooltip'
-  // import 'bootstrap/js/popover'
-  // import 'bootstrap/js/alert'
-  // import 'bootstrap/js/transition'
-  // import 'bootstrap/js/carousel'
+##### Webpack Assets Example
+  - For an image: `app/javascripts/images/blah/something.jpg`
+    - Import in JS with `import 'images/blah/something.jpg'`.
+    - In Rails helpers and controllers, `<%= asset_path_pack 'images/blah/something.jpg' %>`.
+    - In Rails but without path helpers (i.e. models), `Webpacker.manifest.lookup('images/blah/something.jpg')`.
 
-  Turbolinks.start()
+##### Hyrez
+  - Many images in the app are processed using a service this app is hooked up to: https://github.com/hyfn/hyrez .  The following must be specified in environment variables: `IMAGE_RESIZE_URL` and `IMAGE_RESIZE_SECRET`.
+  - Methods in `app/helper/responsive_helper.rb` utilize the service.  Examples:
+    ```
+    srcset_tag - creates an img tag with a srcset
+    picture_tag - picture tag given set of crops and sizes
+    responsive_breakpoints - css helper
+    responsive_image_css - css helper
+    ```
+  - Also check out `app/services/dynamic_image.rb` to see how hyrez works.
 
-  document.addEventListener('DOMContentLoaded', () => {
-    // once ever
-  })
-
-  document.addEventListener('turbolinks:load', () => {
-    // every page
-  })
-JAVASCRIPT
+###### Hyrez + Image Assets
+  - For convenience and having to avoid running hyrez locally, there is a rake task which uploads images in `app/javascript/images` to the s3 bucket under `image-assets`, such that dynamic images can work.
+    ```
+    rake images:upload
+    ```
+  - Use the above in combination with `bucket_image_url`
+  - **Note:** images with the same path will be overwritten.
+TEXT
+end

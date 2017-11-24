@@ -1,4 +1,4 @@
-module AdminPagination
+module PaginationMethods
   extend ActiveSupport::Concern
 
   def page
