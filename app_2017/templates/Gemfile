@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
+ruby '2.4.2'
 
 # Basics
 gem 'rails', '~> 5.1.0'
@@ -12,8 +12,6 @@ gem 'puma', '~> 3.7'
 # gem 'omniauth-facebook'
 
 # Asset Management
-# gem 'carrierwave'
-# gem 'carrierwave-aws'
 # gem 'aws-sdk'
 # gem 'mini_magick'
 
@@ -29,14 +27,6 @@ gem 'parallel', require: false
 # gem 'sidekiq'
 # gem 'sinatra', require: nil
 
-# Admin
-# gem 'bootstrap_form'
-# gem 'kaminari'
-# gem 'haml', '~> 5.0'
-
-# i18n
-# gem 'rails-i18n'
-
 group :production, :staging do
   gem 'puma_worker_killer'
   gem 'rails_12factor'
@@ -50,7 +40,6 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop'
-  # gem 'i18n-tasks'
 end
 
 group :development, :test do

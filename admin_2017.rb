@@ -20,25 +20,26 @@ source_paths.unshift(File.join(source_dir, 'admin_2017'))
 ####################################
 # GEMS
 ####################################
-# Uncomments out gems in Gemfile
-[
-  "gem 'bootstrap_form'",
-  "gem 'kaminari'",
-  "gem 'haml'",
-  "gem 'devise'",
-  "gem 'carrierwave'",
-  "gem 'carrierwave-aws'",
-  "gem 'mini_magick'",
-  "gem 'rails-i18n'",
-  "gem 'i18n-tasks'",
-].each do |str|
-  gsub_file 'Gemfile', /# (#{str})/, '\1'
+gem 'bootstrap_form'
+gem 'kaminari'
+gem 'haml', '~> 5.0'
+gem 'devise'
+gem 'carrierwave'
+gem 'carrierwave-aws'
+gem 'mini_magick'
+gem 'rails-i18n'
+gem 'i18n-tasks'
+
+gem_group :development do
+  gem 'i18n-tasks'
 end
-run 'bundle install'  # TODO better way to do this?
+
 run 'spring stop'
-generate('devise:install') ## TODO figure out how to get bundle and after_bundle to work...
+run 'bundle install'
 # after_bundle do
 # end
+generate('devise:install') ## TODO figure out how to get bundle and after_bundle to work...
+gsub_file 'config/initializers/devise.rb', /# config\.secret_key = .*/, "config.secret_key = ENV['DEVISE_SECRET']"
 
 ####################################
 # CONFIG
@@ -49,6 +50,8 @@ append_to_file '.env' do
 IMAGE_RESIZE_URL=FILL_ME_IN
 # DON'T ADD IT HERE! Copy this file to .env.local and add it there
 # IMAGE_RESIZE_SECRET=FILL_ME_IN
+# DON'T ADD IT HERE! Copy this file to .env.local and add it there
+# DEVISE_SECRET=FILL_ME_IN
 TEXT
 end
 
