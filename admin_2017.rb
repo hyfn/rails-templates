@@ -28,7 +28,6 @@ gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'mini_magick'
 gem 'rails-i18n'
-gem 'i18n-tasks'
 
 gem_group :development do
   gem 'i18n-tasks'
