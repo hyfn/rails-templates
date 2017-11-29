@@ -2,17 +2,17 @@ require 'fileutils'
 require 'shellwords'
 
 def source_dir
-	return File.dirname(__FILE__) unless __FILE__ =~ %r{\Ahttps?://}
+  return File.dirname(__FILE__) unless __FILE__ =~ %r{\Ahttps?://}
 
-	tmpdir = Dir.mktmpdir('rails-template-')
-	at_exit { FileUtils.remove_entry(tmpdir) }
+  tmpdir = Dir.mktmpdir('rails-template-')
+  at_exit { FileUtils.remove_entry(tmpdir) }
 
-	git clone: [
-		'--quiet',
-		'https://github.com/hyfn/rails-templates.git',
-		tmpdir,
-	].map(&:shellescape).join(' ')
-	tmpdir
+  git clone: [
+    '--quiet',
+    'https://github.com/hyfn/rails-templates.git',
+    tmpdir,
+  ].map(&:shellescape).join(' ')
+  tmpdir
 end
 
 source_paths.unshift(File.join(source_dir, 'admin_2017'))
@@ -44,8 +44,7 @@ gsub_file 'config/initializers/devise.rb', /# config\.secret_key = .*/, "config.
 # CONFIG
 ####################################
 
-append_to_file '.env' do
-	<<-'TEXT'
+append_to_file '.env' do <<-'TEXT'
 IMAGE_RESIZE_URL=FILL_ME_IN
 # DON'T ADD IT HERE! Copy this file to .env.local and add it there
 # IMAGE_RESIZE_SECRET=FILL_ME_IN
@@ -59,25 +58,25 @@ end
 ####################################
 
 route <<-'RUBY'
-concern :enableable do
-		patch :enable, on: :member
-		patch :disable, on: :member
-	end
+  concern :enableable do
+    patch :enable, on: :member
+    patch :disable, on: :member
+  end
 
-	concern :sequenceable do
-		patch :promote, on: :member
-		patch :demote, on: :member
-		patch :reorder_all, on: :collection
-	end
+  concern :sequenceable do
+    patch :promote, on: :member
+    patch :demote, on: :member
+    patch :reorder_all, on: :collection
+  end
 
-	namespace :admin do
-		resources :locations, concerns: [:enableable, :sequenceable]
-		resources :fake_things, concerns: [:enableable, :sequenceable]
-		root to: 'dashboard#show'
-	end
+  namespace :admin do
+    resources :locations, concerns: [:enableable, :sequenceable]
+    resources :fake_things, concerns: [:enableable, :sequenceable]
+    root to: 'dashboard#show'
+  end
 
-	get :about, to: 'pages#about'
-	root to: 'pages#home'
+  get :about, to: 'pages#about'
+  root to: 'pages#home'
 RUBY
 
 ####################################
@@ -117,8 +116,7 @@ run 'yarn add bootstrap@3 bootstrap-sass jquery jquery-ujs turbolinks'
 ####################################
 # APPEND TO EXISTING README
 ####################################
-append_to_file 'README.md' do
-	<<-'TEXT'
+append_to_file 'README.md' do <<-'TEXT'
 ### I18n
 - This codebase uses yaml based i18n.  Two locales are configured: English `en` and Spanish `es`.  To adjust available locales, change `config.i18n.available_locales` in `config/application.rb`.
 - In the development gems there is https://github.com/glebm/i18n-tasks , this can be used to figure out which translations are missing, etc.
