@@ -17,9 +17,18 @@ module Sluggable
   end
 
   def generate_slug
-    slug_attr = send(self.class.sluggable_attribute)
+    slug_attr = nil
+    if self.class.sluggable_attribute.is_a?(String)
+      slug_attr = send(self.class.sluggable_attribute)
+    else
+      slug_attr = self.class.sluggable_attribute.call(self)
+    end
     if slug_attr.present? && !slug.present?
       self.slug = Sluggable.slugify_string(slug_attr)
     end
+  end
+
+  def to_param
+    slug
   end
 end

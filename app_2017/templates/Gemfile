@@ -20,7 +20,7 @@ gem 'newrelic_rpm'
 gem 'sentry-raven'
 
 # Frontend Common
-gem 'webpacker'
+gem 'webpacker', '~> 3.2.0'
 
 gem 'parallel', require: false
 

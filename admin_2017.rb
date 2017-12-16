@@ -91,6 +91,9 @@ environment <<~'RUBY'
 RUBY
 directory 'config/locales', 'config/locales'
 
+copy_file 'config/webpack/environment.js', 'config/webpack/environment.js', force: true
+
+
 ####################################
 # COPY STUB MIGRATIONS
 ####################################

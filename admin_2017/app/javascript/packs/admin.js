@@ -1,17 +1,17 @@
 import 'styles/admin.scss'
 import $ from 'jquery'
-// TODO why this require and import mixing and matching
-global.jQuery = $
-require('jquery-ujs')
+import 'jquery-ujs'
+
 import Turbolinks from 'turbolinks'
 
-require('bootstrap/js/dropdown')
-require('bootstrap/js/modal')
-require('bootstrap/js/tooltip')
-require('bootstrap/js/popover')
-require('bootstrap/js/alert')
-require('bootstrap/js/transition')
-require('bootstrap/js/carousel')
+import 'bootstrap/js/dropdown'
+import 'bootstrap/js/modal'
+import 'bootstrap/js/tooltip'
+import 'bootstrap/js/popover'
+import 'bootstrap/js/alert'
+import 'bootstrap/js/transition'
+import 'bootstrap/js/carousel'
+import 'bootstrap/js/collapse'
 
 // TODO can delete me when unneeded...this is just for demo purposes
 import 'images/test/1.jpg'
@@ -25,4 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('turbolinks:load', () => {
   // every page
+})
+
+global.jQuery = $
+
+$(() => {
+  // Stuff goes here
 })
