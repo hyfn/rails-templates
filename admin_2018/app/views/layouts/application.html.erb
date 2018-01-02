@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testapp</title>
+    <%= content_for?(:seo) ? yield(:seo) : seo_tags %>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_pack_tag    'application', media: 'all' %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-eval': false %>
+  </body>
+</html>

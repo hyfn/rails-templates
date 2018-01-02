@@ -71,9 +71,8 @@ copy_file 'production.rb', 'config/environments/staging.rb', force: true
 ####################################
 
 environment <<~'RUBY'
-      config.secret_token = ENV.fetch('SECRET_TOKEN')
+config.secret_token = ENV.fetch('SECRET_TOKEN')
       config.autoload_paths <<  Rails.root.join('app', 'services')
-      config.autoload_paths <<  Rails.root.join('app', 'serializers')
       config.autoload_paths <<  Rails.root.join('app', 'uploaders')
       config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
       config.generators do |generate|

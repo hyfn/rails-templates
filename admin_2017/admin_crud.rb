@@ -38,6 +38,18 @@ module AdminCrud
     end
   end
 
+  def enable
+    enable! do
+      redirect_to({ action: :index }, notice: "#{humanized} enabled")
+    end
+  end
+
+  def disable
+    disable! do
+      redirect_to({ action: :index }, notice: "#{humanized} disabled")
+    end
+  end
+
   def destroy!
     resource = find_one
     resource.destroy

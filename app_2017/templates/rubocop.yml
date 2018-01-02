@@ -23,7 +23,7 @@ Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
-Naming/AccessorMethodName:
+Style/AccessorMethodName:
   Enabled: false
 Style/StringLiterals:
   Enabled: true
@@ -31,10 +31,10 @@ Style/StringLiterals:
     - db/**/*.rb
     - config/**/*.rb
     - spec/**/*.rb
-Layout/SpaceBeforeBlockBraces:
+Style/SpaceBeforeBlockBraces:
   Exclude:
     - 'spec/**/*.rb'
-Layout/SpaceInsideBlockBraces:
+Style/SpaceInsideBlockBraces:
   Exclude:
     - 'spec/**/*.rb'
 Style/DoubleNegation:
@@ -44,13 +44,13 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
 Bundler/OrderedGems:
   Enabled: false
-Layout/MultilineMethodCallIndentation:
+Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
-Layout/MultilineMethodCallBraceLayout:
+Style/MultilineMethodCallBraceLayout:
   Enabled: false
-Layout/FirstParameterIndentation:
+Style/FirstParameterIndentation:
   EnforcedStyle: consistent
-Layout/AlignParameters:
+Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 Rails/SafeNavigation:
   Enabled: true

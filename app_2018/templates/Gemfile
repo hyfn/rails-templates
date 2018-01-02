@@ -1,0 +1,62 @@
+source 'https://rubygems.org'
+
+ruby '2.4.2'
+
+# Basics
+gem 'rails', '~> 5.1.0'
+gem 'pg', '~> 0.18'
+gem 'puma', '~> 3.7'
+
+# Auth
+# gem 'devise'
+# gem 'omniauth-facebook'
+
+# Asset Management
+# gem 'aws-sdk'
+# gem 'mini_magick'
+
+# Monitoring
+gem 'newrelic_rpm'
+gem 'sentry-raven'
+
+# Frontend Common
+gem 'webpacker', '~> 3.2.0'
+
+gem 'parallel', require: false
+
+# gem 'sidekiq'
+# gem 'sinatra', require: nil
+
+group :production, :staging do
+  gem 'puma_worker_killer'
+  gem 'rails_12factor'
+  gem 'dalli'
+end
+
+group :development do
+  gem 'web-console'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rubocop'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.5'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'dotenv-rails'
+  gem 'fabrication'
+  gem 'ffaker'
+  gem 'fuubar'
+
+  gem 'bullet'
+  gem 'bundler-audit', '>= 0.5.0', require: false
+end
+
+group :test do
+  gem 'timecop'
+  gem 'webmock'
+  gem 'database_cleaner'
+end
