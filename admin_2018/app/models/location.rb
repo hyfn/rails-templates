@@ -4,6 +4,7 @@ class Location < ApplicationRecord
   include Sequenceable
   include Sluggable
 
+  validates :name, presence: true
   slug_from :name
 
   has_many :fake_things

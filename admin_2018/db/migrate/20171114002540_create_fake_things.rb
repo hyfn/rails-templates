@@ -7,7 +7,7 @@ class CreateFakeThings < ActiveRecord::Migration[5.1]
       t.string :slug, null: false
       t.boolean :enabled, default: false
       t.integer :seq
-      t.string :image, :string
+      # t.string :image, :string
 
       t.timestamps
     end

@@ -6,6 +6,7 @@ class FakeThing < ApplicationRecord
 
   # TODO add a carrierwave replacement...
 
+  validates :name, presence: true
   slug_from :name
   scope_sequence_with :location
 

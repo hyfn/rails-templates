@@ -7,7 +7,8 @@ module Admin
     protected
 
     def permitted_params
-      params.require(:fake_thing).permit(:name, :slug, :location_id, :image, :image_cache)
+      # params.require(:fake_thing).permit(:name, :slug, :location_id, :image)
+      params.require(:fake_thing).permit(:name, :slug, :location_id)
     end
   end
 end
