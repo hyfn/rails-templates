@@ -37,7 +37,7 @@ copy_file 'Gemfile', force: true
 # REMOVE SECRETS.YML
 ####################################
 
-remove_file 'config/secrets.yml'
+# remove_file 'config/secrets.yml'
 
 ####################################
 # DOTENV
@@ -70,27 +70,29 @@ copy_file 'production.rb', 'config/environments/staging.rb', force: true
 # APP CONFIG
 ####################################
 
-environment <<~'RUBY'
-      config.secret_token = ENV.fetch('SECRET_TOKEN')
-      config.autoload_paths <<  Rails.root.join('app', 'services')
-      config.autoload_paths <<  Rails.root.join('app', 'serializers')
-      config.autoload_paths <<  Rails.root.join('app', 'uploaders')
-      config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
-      config.generators do |generate|
-        generate.helper false
-        generate.javascript_engine false
-        generate.request_specs true
-        generate.controller_specs false
-        generate.routing_specs false
-        generate.stylesheets false
-        generate.test_framework :rspec
-        generate.view_specs false
-      end
+# TODO: see what's actually needed in Rails 5.2
 
-      config.action_controller.action_on_unpermitted_parameters = :raise
+# environment <<~'RUBY'
+#       config.secret_token = ENV.fetch('SECRET_TOKEN')
+#       config.autoload_paths <<  Rails.root.join('app', 'services')
+#       config.autoload_paths <<  Rails.root.join('app', 'serializers')
+#       config.autoload_paths <<  Rails.root.join('app', 'uploaders')
+#       config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
+#       config.generators do |generate|
+#         generate.helper false
+#         generate.javascript_engine false
+#         generate.request_specs true
+#         generate.controller_specs false
+#         generate.routing_specs false
+#         generate.stylesheets false
+#         generate.test_framework :rspec
+#         generate.view_specs false
+#       end
 
-      Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
-RUBY
+#       config.action_controller.action_on_unpermitted_parameters = :raise
+
+#       Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
+# RUBY
 
 ####################################
 # PUMA CONFIG
@@ -124,16 +126,18 @@ after_bundle do
   generate('rspec:install')
 end
 
-####################################
-# WEBPACKER
-####################################
+# after_bundle do
+#   remove_file 'app/assets'
 
-after_bundle do
-  remove_file 'app/assets'
+#   # run 'yarn remove coffee-loader coffee-script'
+#   # remove_file 'config/webpack/loaders/coffee.js'
 
-  run 'yarn remove coffee-loader coffee-script'
-  remove_file 'config/webpack/loaders/coffee.js'
-end
+#   npm_packages = %(
+#     @types/react @types/react-dom @types/classnames classnames mobx mobx-react
+#   ).strip
+
+#   run "yarn add #{npm_packages}"
+# end
 
 ####################################
 # GITIGNORES

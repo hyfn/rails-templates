@@ -5,8 +5,7 @@
 ### Base App
 
 Rails app with Webpacker, Heroku nginx config.
-
-    rails new testapp -d postgresql --webpack -C -J -S -T --skip-coffee --skip-listen --skip-turbolinks -m https://raw.github.com/hyfn/rails-templates/master/app_2018.rb
+    rails new testapp -d postgresql --webpack -J -S -T --skip-coffee --skip-turbolinks --webpack=react -m https://raw.github.com/hyfn/rails-templates/master/app_2018.rb
 
 or with `-m ./rails-templates/app_2018.rb` if you've got it locally
 
@@ -18,24 +17,32 @@ Admin skeleton with Bootstrap and bootstrap_form.
     bin/rails app:template LOCATION=https://raw.github.com/hyfn/rails-templates/master/admin_2018.rb
     bundle install
 
-or with `-m ./rails-templates/admin_2018.rb` if you've got it locally
+or with `LOCATION=../rails-templates/admin_2018.rb` if you've got it locally
+
+### Typescript React App
+
+Typescript React starter.
+
+    cd testapp # or whatever you named it
+    bin/rails app:template LOCATION=https://raw.github.com/hyfn/rails-templates/master/typescript_2018.rb
+    bundle install
+
+or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locally
 
 ### To Do
 
-- [ ] add a typescript generator
+- [x] add a typescript generator
 - [ ] `yarn start` is wrong in README
 - [ ] make sure the JS build can be uglified
-- [ ] A new template for a particular client
 - [ ] Make bootstrap js work
 - [ ] Better rspec setup
-- [ ] Clean up package.json - add name and private, etc
-- [ ] eslint
-- [ ] js samples
+- [x] Clean up package.json - add name and private, etc
+- [x] eslint
+- [x] js samples
 - [ ] memcached / memcachier
 - [ ] circle.yml
-- [ ] better webpacker instructions
-- [ ] slugignore yarn.lock
-- [ ] maybe more babel defaults
+- [ ] better webpacker instructions?
+- [ ] remove hyrez stuff - figure out zany rails storage thing
 
 ## Rails App 2017
 
