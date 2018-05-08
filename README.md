@@ -11,7 +11,7 @@ or with `-m ./rails-templates/app_2018.rb` if you've got it locally
 
 ### Admin
 
-Admin skeleton with Bootstrap and bootstrap_form.
+Admin skeleton with Bootstrap and bootstrap_form. First you make the Base App (see above) and then you run this.
 
     cd testapp # or whatever you named it
     bin/rails app:template LOCATION=https://raw.github.com/hyfn/rails-templates/master/admin_2018.rb
@@ -21,7 +21,7 @@ or with `LOCATION=../rails-templates/admin_2018.rb` if you've got it locally
 
 ### Typescript React App
 
-Typescript React starter.
+Typescript React starter. First you make the Base App (see above) and then you run this.
 
     cd testapp # or whatever you named it
     bin/rails app:template LOCATION=https://raw.github.com/hyfn/rails-templates/master/typescript_2018.rb
@@ -43,6 +43,12 @@ or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locall
 - [ ] circle.yml
 - [ ] better webpacker instructions?
 - [ ] remove hyrez stuff - figure out zany rails storage thing
+- [ ] this:
+
+        You need to allow webpack-dev-server host as allowed origin for connect-src.
+        This can be done in Rails 5.2+ for development environment in the CSP initializer
+        config/initializers/content_security_policy.rb with a snippet like this:
+        policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
 
 ## Rails App 2017
 

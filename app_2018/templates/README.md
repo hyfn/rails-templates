@@ -8,9 +8,10 @@ TODO:
 
 ### First Time
 
-1. Get Ruby 2.4.1 installed
-  - `rvm install 2.4.1` if you have [RVM](https://rvm.io/)
+1. Get Ruby 2.5.2 installed
   - `brew install ruby` if you want to use homebrew
+  - `rvm install 2.5.2` if you have [RVM](https://rvm.io/)
+  - similar instructions for rbenv (recommended!)
 2. Install some dependencies
   - `brew install postgres`
   - `brew install yarn`

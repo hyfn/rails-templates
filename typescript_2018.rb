@@ -72,6 +72,7 @@ File.write('package.json', JSON.dump(package_json.merge(package_json_updates)))
 
 remove_file 'app/javascript/packs/application.js'
 remove_file 'app/javascript/packs/hello_react.jsx'
+remove_file 'app/javascript/packs/hello_typescript.tsx'
 
 directory 'app', 'app', recursive: true, verbose: true
 copy_file 'tslint.json', 'tslint.json'

@@ -126,18 +126,13 @@ after_bundle do
   generate('rspec:install')
 end
 
-# after_bundle do
-#   remove_file 'app/assets'
+####################################
+# YARN
+####################################
 
-#   # run 'yarn remove coffee-loader coffee-script'
-#   # remove_file 'config/webpack/loaders/coffee.js'
-
-#   npm_packages = %(
-#     @types/react @types/react-dom @types/classnames classnames mobx mobx-react
-#   ).strip
-
-#   run "yarn add #{npm_packages}"
-# end
+after_bundle do
+  run "yarn"
+end
 
 ####################################
 # GITIGNORES
