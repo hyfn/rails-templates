@@ -1,0 +1,7 @@
+= bootstrap_form_for([:admin, @fake_thing]) do |f|
+  = f.select :location_id, Location.all.map{|loc| [loc.name, loc.id]}
+  = f.text_field :name
+  = f.text_field :slug
+  = # f.file_field :image
+  = # f.hidden_field :image_cache
+  = f.submit

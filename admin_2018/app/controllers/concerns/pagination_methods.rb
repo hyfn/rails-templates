@@ -1,0 +1,11 @@
+module PaginationMethods
+  extend ActiveSupport::Concern
+
+  def page
+    (params[:page] || 1).to_i
+  end
+
+  def per_page
+    (params[:per_page] || 20).to_i
+  end
+end

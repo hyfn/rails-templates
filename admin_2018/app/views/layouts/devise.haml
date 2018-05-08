@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title Admin
+    = stylesheet_pack_tag "admin"
+    = javascript_pack_tag "admin"
+    = csrf_meta_tags
+
+  %body#login
+    .container
+      .col-sm-6.col-sm-offset-3
+        = yield
