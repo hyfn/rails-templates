@@ -5,20 +5,24 @@ module Admin
   module Crud
     extend ActiveSupport::Concern
 
+    included do
+      helper_method :resource, :resources
+    end
+
     def index
-      instance_variable_set "@#{plural}", find_all
+      self.resources = find_all
     end
 
     def new
-      instance_variable_set "@#{singular}", self.class.resource_class.new
+      self.resource = self.class.resource_class.new
     end
 
     def show
-      instance_variable_set "@#{singular}", find_one
+      self.resource = find_one
     end
 
     def edit
-      instance_variable_set "@#{singular}", find_one
+      self.resource = find_one
     end
 
     def create
@@ -40,14 +44,13 @@ module Admin
     end
 
     def destroy!
-      resource = find_one
+      self.resource = find_one
       resource.destroy
       yield resource
     end
 
     def create!
-      resource = self.class.resource_class.new(permitted_params)
-      instance_variable_set "@#{singular}", resource
+      self.resource = self.class.resource_class.new(permitted_params)
       if resource.save
         yield resource
       else
@@ -56,8 +59,7 @@ module Admin
     end
 
     def update!
-      resource = find_one
-      instance_variable_set "@#{singular}", resource
+      self.resource = find_one
       if resource.update_attributes(permitted_params)
         yield resource
       else
@@ -66,18 +68,34 @@ module Admin
     end
 
     def enable!
-      resource = find_one
+      self.resource = find_one
       resource.update!(enabled: true)
       yield resource
     end
 
     def disable!
-      resource = find_one
+      self.resource = find_one
       resource.update!(enabled: false)
       yield resource
     end
 
     protected
+
+    def resource
+      "@#{singular}"
+    end
+
+    def resource=(res)
+      instance_variable_set "@#{singular}", res
+    end
+
+    def resources
+      "@#{plural}"
+    end
+
+    def resources=(res)
+      instance_variable_set "@#{plural}", res
+    end
 
     def find_one
       if self.class.resource_class.include?(Sluggable)

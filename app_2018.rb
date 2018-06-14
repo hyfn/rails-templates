@@ -105,6 +105,7 @@ copy_file 'puma.rb', 'config/puma.rb', force: true
 ####################################
 
 copy_file 'rubocop.yml', '.rubocop.yml'
+string_template 'circle.yml', '.circleci/config.yml'
 
 ####################################
 # NGINX CONFIG
@@ -124,7 +125,17 @@ string_template 'newrelic.yml', 'config/newrelic.yml'
 
 after_bundle do
   generate('rspec:install')
+  copy_file 'spec/rails_helper.rb', 'spec/rails_helper.rb', force: true
+  copy_file 'spec/common_helpers.rb', 'spec/support/common_helpers.rb'
+  copy_file 'spec/request_helpers.rb', 'spec/support/request_helpers.rb'
 end
+
+####################################
+# RAKE TASKS
+####################################
+
+copy_file 'db.rake', 'lib/tasks/db.rake'
+copy_file 'auto_annotate_models.rake', 'lib/tasks/auto_annotate_models.rake'
 
 ####################################
 # YARN

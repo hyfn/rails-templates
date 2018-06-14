@@ -29,17 +29,19 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # gem 'omniauth-facebook'
 
 # Asset Management
-# gem 'aws-sdk'
+# gem 'aws-sdk-s3', '~> 1'
 # gem 'mini_magick'
 
 # Monitoring
 gem 'newrelic_rpm'
 gem 'sentry-raven'
+# gem 'paper_trail'
 
 gem 'parallel', require: false
 
 # gem 'sidekiq'
 # gem 'sinatra', require: nil
+# gem 'postmark'
 
 group :production, :staging do
   gem 'puma_worker_killer'
@@ -56,6 +58,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'spring-commands-rspec'
+  gem 'letter_opener'
   gem 'rubocop'
 end
 
@@ -67,6 +70,7 @@ group :development, :test do
   gem 'fabrication'
   gem 'ffaker'
   gem 'fuubar'
+  gem 'annotate'
 
   gem 'bullet'
   gem 'bundler-audit', '>= 0.5.0', require: false

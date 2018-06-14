@@ -30,17 +30,17 @@ Typescript React starter. First you make the Base App (see above) and then you r
 or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locally
 
 ### To Do
-
+- [x] `rspec:install` doesn't create `spec_helper.rb`
 - [x] add a typescript generator
-- [ ] `yarn start` is wrong in README
+- [x] `yarn start` is wrong in README
 - [ ] make sure the JS build can be uglified
 - [ ] Make bootstrap js work
-- [ ] Better rspec setup
+- [x] Better rspec setup
 - [x] Clean up package.json - add name and private, etc
 - [x] eslint
 - [x] js samples
-- [ ] memcached / memcachier
-- [ ] circle.yml
+- [x] memcached / memcachier
+- [x] circle.yml
 - [ ] better webpacker instructions?
 - [ ] remove hyrez stuff - figure out zany rails storage thing
 - [ ] this:

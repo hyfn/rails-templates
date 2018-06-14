@@ -1,4 +1,6 @@
 Rails.application.configure do
+  config.webpacker.check_yarn_integrity = false
+
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false
@@ -18,7 +20,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   # TODO: should be S3 or something
-  config.active_storage.service = :local
+  config.active_storage.service = :s3
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.action_controller.asset_host = "https://#{ENV['CDN_HOST']}"
@@ -37,7 +39,17 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, (ENV["MEMCACHIER_SERVERS"] || "").split(","), {
+    namespace: 'westdermatology',
+    expires_in: 1.day,
+    compress: true,
+    username: ENV["MEMCACHIER_USERNAME"],
+    password: ENV["MEMCACHIER_PASSWORD"],
+    failover: true,
+    socket_timeout: 1.5,
+    socket_failure_delay: 0.2,
+    down_retry_delay: 60,
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter = :sidekiq
@@ -52,15 +64,9 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # config.action_mailer.smtp_settings = {
-  #   address: 'smtp.sendgrid.net',
-  #   port: '587',
-  #   authentication: :plain,
-  #   user_name: ENV['SENDGRID_USERNAME'],
-  #   password: ENV['SENDGRID_PASSWORD'],
-  #   domain: 'heroku.com',
-  #   enable_starttls_auto: true,
-  # }
+  # TODO: enable postmark
+  # config.action_mailer.delivery_method = :postmark
+  # config.action_mailer.postmark_settings = { :api_token => ENV['POSTMARK_API_KEY'] }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
