@@ -1,4 +1,2 @@
-module Admin
-  class DashboardController < ::Admin::BaseController
-  end
+class Admin::DashboardController < ::Admin::BaseController
 end

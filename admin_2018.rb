@@ -32,10 +32,25 @@ end
 
 run 'spring stop'
 run 'bundle install'
+
+####################################
+# DEVISE
+####################################
+
 # after_bundle do
 # end
-generate('devise:install') ## TODO figure out how to get bundle and after_bundle to work...
+# TODO: figure out how to get bundle and after_bundle to work...
+generate 'devise:install'
 gsub_file 'config/initializers/devise.rb', /# config\.secret_key = .*/, "config.secret_key = ENV['DEVISE_SECRET']"
+generate 'devise Admin --routes=false'
+generate 'devise:views -v sessions passwords'
+generate 'devise:controllers admin -c sessions passwords'
+# route <<~'RUBY'
+#   devise_for :admins, path: 'admin', controllers: {
+#     sessions:           "admin/sessions",
+#     passwords:          "admin/passwords",
+#   }
+# RUBY
 
 ####################################
 # CONFIG
@@ -92,7 +107,7 @@ directory 'config/locales', 'config/locales'
 # COPY STUB MIGRATIONS
 ####################################
 directory 'db/migrate', 'db/migrate', recursive: true, verbose: true # TODO make other migrations not hard coded
-generate 'devise AdminUser'
+
 directory 'spec/fabricators', 'spec/fabricators', recursive: true, verbose: true
 
 ####################################

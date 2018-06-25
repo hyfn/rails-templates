@@ -1,13 +1,11 @@
-module Admin
-  class LocationsController < ::Admin::BaseController
-    include Crud
-    include Enableable
-    include Sequenceable
+class Admin::LocationsController < ::Admin::BaseController
+  include Crud
+  include Enableable
+  include Sequenceable
 
-    protected
+  protected
 
-    def permitted_params
-      params.require(:location).permit(:name, :slug)
-    end
+  def permitted_params
+    params.require(:location).permit(:name, :slug)
   end
 end

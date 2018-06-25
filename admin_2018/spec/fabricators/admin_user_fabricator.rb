@@ -1,2 +1,2 @@
-Fabricator(:admin_user) do
+Fabricator(:admin) do
 end

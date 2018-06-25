@@ -1,14 +1,12 @@
-module Admin
-  class FakeThingsController < BaseController
-    include Crud
-    include Enableable
-    include Sequenceable
+class Admin::FakeThingsController < Admin::BaseController
+  include Crud
+  include Enableable
+  include Sequenceable
 
-    protected
+  protected
 
-    def permitted_params
-      # params.require(:fake_thing).permit(:name, :slug, :location_id, :image)
-      params.require(:fake_thing).permit(:name, :slug, :location_id)
-    end
+  def permitted_params
+    # params.require(:fake_thing).permit(:name, :slug, :location_id, :image)
+    params.require(:fake_thing).permit(:name, :slug, :location_id)
   end
 end

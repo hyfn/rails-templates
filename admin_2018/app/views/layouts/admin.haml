@@ -40,7 +40,7 @@
               %ul.dropdown-menu
                 %li= link_to 'Report', '#'
           %ul.nav.navbar-nav.navbar-right
-            %li= link_to 'Log Out', destroy_admin_user_session_path, method: :delete
+            %li= link_to 'Log Out', destroy_admin_session_path, method: :delete
     .container
       #main
         - if flash[:alert].present?
