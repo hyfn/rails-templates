@@ -43,14 +43,15 @@ run 'bundle install'
 generate 'devise:install'
 gsub_file 'config/initializers/devise.rb', /# config\.secret_key = .*/, "config.secret_key = ENV['DEVISE_SECRET']"
 generate 'devise Admin --routes=false'
+gsub_file 'app/models/admin.rb', ', :registerable', ''
 generate 'devise:views -v sessions passwords'
 generate 'devise:controllers admin -c sessions passwords'
-# route <<~'RUBY'
-#   devise_for :admins, path: 'admin', controllers: {
-#     sessions:           "admin/sessions",
-#     passwords:          "admin/passwords",
-#   }
-# RUBY
+gsub_file 'config/routes.rb', 'devise_for :admins, skip: :all', <<~'RUBY'
+  devise_for :admins, path: 'admin', controllers: {
+      sessions: "admin/sessions",
+      passwords: "admin/passwords",
+    }
+RUBY
 
 ####################################
 # CONFIG
