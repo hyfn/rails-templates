@@ -19,8 +19,8 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  # TODO: should be S3 or something
-  config.active_storage.service = :s3
+  # TODO: this will break stuff
+  # config.active_storage.service = :amazon
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.action_controller.asset_host = "https://#{ENV['CDN_HOST']}"

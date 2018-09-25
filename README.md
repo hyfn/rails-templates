@@ -30,6 +30,13 @@ Typescript React starter. First you make the Base App (see above) and then you r
 or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locally
 
 ### To Do
+- [ ] "secret" stuff needs to be update a bit
+- [ ] is spring working?
+- [ ] assets folder still seems to be making it in there
+- [ ] revert my stupid "admin" thing. admin_user is saner
+- [ ] make active storage not broken (or remove it)
+- [ ] update rubocop rules from mxt
+- [ ] add `cache:clear` rake task
 - [x] `rspec:install` doesn't create `spec_helper.rb`
 - [x] add a typescript generator
 - [x] `yarn start` is wrong in README
