@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Provider } from 'mobx-react'
-import { Router, Route } from 'react-router-dom'
+import { Router, Route, Link } from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 
 import './App.scss'
 
-import RoutingStore from 'stores/RoutingStore'
+import RoutingStore from 'application/stores/RoutingStore'
 import Home from './Home'
 import Styleguide from './Styleguide'
 

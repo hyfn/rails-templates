@@ -3,8 +3,8 @@ import { observer, inject } from 'mobx-react'
 
 import './Styleguide.scss'
 
-import AppStore from 'stores/AppStore'
-import RoutingStore from 'stores/RoutingStore'
+import AppStore from 'application/stores/AppStore'
+import RoutingStore from 'application/stores/RoutingStore'
 
 export interface StyleguideProps {
   routingStore: RoutingStore

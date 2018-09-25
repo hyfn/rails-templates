@@ -42,7 +42,13 @@ npm_packages = %(
 
 run "yarn add #{npm_packages}"
 
-dev_packages = %(tslint prettier).gsub(/\s+/, ' ')
+dev_packages = %(
+  tslint
+  prettier
+  tslint-react
+  tslint-no-circular-imports
+  webpack-bundle-analyzer
+).gsub(/\s+/, ' ')
 
 run "yarn add #{dev_packages} --dev"
 

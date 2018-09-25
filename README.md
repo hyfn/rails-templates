@@ -35,7 +35,7 @@ or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locall
 - [ ] assets folder still seems to be making it in there
 - [ ] revert my stupid "admin" thing. admin_user is saner
 - [ ] make active storage not broken (or remove it)
-- [ ] update rubocop rules from mxt
+- [x] update rubocop rules from mxt
 - [ ] add `cache:clear` rake task
 - [x] `rspec:install` doesn't create `spec_helper.rb`
 - [x] add a typescript generator
@@ -49,7 +49,7 @@ or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locall
 - [x] memcached / memcachier
 - [x] circle.yml
 - [ ] better webpacker instructions?
-- [ ] remove hyrez stuff - figure out zany rails storage thing
+- [x] remove hyrez stuff - figure out zany rails storage thing
 - [ ] this:
 
         You need to allow webpack-dev-server host as allowed origin for connect-src.

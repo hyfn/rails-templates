@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { observer, inject } from 'mobx-react'
+import * as React from "react"
+import { observer, inject } from "mobx-react"
 
-import './Home.scss'
+import "./Home.scss"
 
-import AppStore from 'stores/AppStore'
-import RoutingStore from 'stores/RoutingStore'
+import AppStore from "application/stores/AppStore"
+import RoutingStore from "application/stores/RoutingStore"
 
 export interface HomeProps {
   routingStore: RoutingStore

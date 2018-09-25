@@ -5,6 +5,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
+    "allowJs": true,
     "target": "es5",
     "jsx": "react",
 
@@ -13,12 +14,18 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     "suppressImplicitAnyIndexErrors": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "paths": {
-      "*": ["app/javascript/*", "app/javascript/types/*"]
-    }
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./app/javascript",
+    "typeRoots": ["./app/javascript/types"],
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true
   },
-  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
+  "exclude": [
+    "**/*.spec.ts",
+    "node_modules",
+    "vendor",
+    "public"
+  ],
   "compileOnSave": false
 }

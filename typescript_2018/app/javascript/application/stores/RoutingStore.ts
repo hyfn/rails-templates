@@ -1,15 +1,15 @@
-
-import { observable, action, computed } from "mobx"
+import { observable, action, computed } from 'mobx'
 import {
   History,
   Location,
   LocationState,
   LocationDescriptorObject,
-} from "history"
-import { parse, stringify, QueryString } from "helpers/queryString"
+} from 'history'
+import { parse, stringify, QueryString } from 'application/helpers/queryString'
 
 export default class RoutingStore {
-  @observable location: Location
+  @observable
+  location: Location
 
   @computed
   get query() {
