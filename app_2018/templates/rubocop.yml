@@ -56,6 +56,29 @@ Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 Rails/SafeNavigation:
   Enabled: true
+Layout/DotPosition:
+  EnforcedStyle: trailing
+Layout/MultilineOperationIndentation:
+  Enabled: false
+Rails/HttpStatus:
+  Enabled: false
+Style/LambdaCall:
+  Enabled: false
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+Style/SymbolArray:
+  EnforcedStyle: percent
+  MinSize: 6
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 6
+Layout/IndentHash:
+  EnforcedStyle: consistent
+Layout/IndentArray:
+  EnforcedStyle: consistent
+Performance/TimesMap:
+  Enabled: false
+
 AllCops:
   Exclude:
     - db/schema.rb

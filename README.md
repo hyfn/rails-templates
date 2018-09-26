@@ -30,6 +30,7 @@ Typescript React starter. First you make the Base App (see above) and then you r
 or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locally
 
 ### To Do
+- [ ] move away from the double ENV file thing (instead just gitignore .env)
 - [ ] "secret" stuff needs to be update a bit
 - [ ] is spring working?
 - [ ] assets folder still seems to be making it in there
