@@ -5,6 +5,7 @@
 ### Base App
 
 Rails app with Webpacker, Heroku nginx config.
+
     rails new testapp -d postgresql --webpack -J -S -T --skip-coffee --skip-turbolinks --webpack=react -m https://raw.github.com/hyfn/rails-templates/master/app_2018.rb
 
 or with `-m ./rails-templates/app_2018.rb` if you've got it locally
