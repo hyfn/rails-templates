@@ -30,6 +30,11 @@ Typescript React starter. First you make the Base App (see above) and then you r
 or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locally
 
 ### To Do
+- [ ] circleCI pg version
+- [ ] add coverage tool
+- [ ] add other fixture types to tests
+- [ ] probably other test stuff - check mxt and xpo
+- [ ] update the devise ENV var thing to match xpo. Add it to circleCI config as well
 - [ ] scrub all references to SENDGRID
 - [ ] move away from the double ENV file thing (instead just gitignore .env)
 - [ ] "secret" stuff needs to be update a bit
