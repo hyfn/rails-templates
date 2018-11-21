@@ -41,7 +41,7 @@ gem 'parallel', require: false
 
 # gem 'sidekiq'
 # gem 'sinatra', require: nil
-# gem 'postmark'
+# gem 'postmark-rails'
 
 group :production, :staging do
   gem 'puma_worker_killer'
