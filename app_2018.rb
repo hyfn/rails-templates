@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'shellwords'
+require 'tmpdir'
 
 app_title = camelized.underscore.humanize.titlecase
 CONTEXT = instance_eval('binding')
