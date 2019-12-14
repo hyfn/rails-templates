@@ -1,0 +1,25 @@
+# Common ENV stuff:
+# This is checked in to version control
+# Non-secret, shared stuff goes in here
+# Developer-specific and private stuff goes in .env.local
+
+DEVISE_SECRET=#{SecureRandom.hex(64)}
+SECRET_TOKEN=#{SecureRandom.hex(64)}
+
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=FILL_ME_IN
+AWS_S3_BUCKET_NAME=FILL_ME_IN
+BUCKET_CDN_HOST=FILL_ME_IN
+
+# DON'T ADD IT HERE! Copy this file to .env.local and add it there
+# AWS_SECRET_ACCESS_KEY=FILL_ME_IN
+
+DATABASE_URL=postgres://localhost/#{app_name}_development
+TEST_DATABASE_URL=postgres://localhost/#{app_name}_test
+
+SENTRY_DSN=FILL_ME_IN
+SENDGRID_PASSWORD=FILL_ME_IN
+SENDGRID_USERNAME=FILL_ME_IN
+
+APPLICATION_HOST=localhost:3000
+DEFAULT_EXPIRY_IN_SEC=20

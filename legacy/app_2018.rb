@@ -26,7 +26,7 @@ def source_dir
   tmpdir
 end
 
-source_paths.unshift(File.join(source_dir, 'app_2018', 'templates'))
+source_paths.unshift(File.join(source_dir, 'app_2020', 'templates'))
 
 ####################################
 # GEMS

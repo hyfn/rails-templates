@@ -1,0 +1,87 @@
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/Output:
+  Exclude:
+    - 'db/**/seeds.rb'
+    - 'lib/tasks/**/*'
+Style/GuardClause:
+  MinBodyLength: 4
+Style/Documentation:
+  Enabled: false
+Rails:
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: true
+  Max: 120
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+Naming/AccessorMethodName:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: true
+  Exclude:
+    - db/**/*.rb
+    - config/**/*.rb
+    - spec/**/*.rb
+Layout/SpaceBeforeBlockBraces:
+  Exclude:
+    - 'spec/**/*.rb'
+Layout/SpaceInsideBlockBraces:
+  Exclude:
+    - 'spec/**/*.rb'
+Style/DoubleNegation:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+Bundler/OrderedGems:
+  Enabled: false
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+Layout/FirstParameterIndentation:
+  EnforcedStyle: consistent
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Rails/SafeNavigation:
+  Enabled: true
+Layout/DotPosition:
+  EnforcedStyle: trailing
+Layout/MultilineOperationIndentation:
+  Enabled: false
+Rails/HttpStatus:
+  Enabled: false
+Style/LambdaCall:
+  Enabled: false
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+Style/SymbolArray:
+  EnforcedStyle: percent
+  MinSize: 6
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 6
+Layout/IndentHash:
+  EnforcedStyle: consistent
+Layout/IndentArray:
+  EnforcedStyle: consistent
+Performance/TimesMap:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - db/migrate/**/*.rb
+    - bin/**/*.rb
+  TargetRubyVersion: 2.3

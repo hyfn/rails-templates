@@ -1,5 +1,9 @@
 # HYFN Rails Templates
 
+# Rails App 2020
+
+`rails new Skylight -d postgresql -S --skip-listen --skip-coffee -T --webpack=react -p`
+
 ## Rails App 2018
 
 ### Base App
