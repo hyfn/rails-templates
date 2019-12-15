@@ -8,9 +8,9 @@ TODO:
 
 ### First Time
 
-1. Get Ruby 2.5.2 installed
+1. Get Ruby 2.6.3 installed
   - `brew install ruby` if you want to use homebrew
-  - `rvm install 2.5.2` if you have [RVM](https://rvm.io/)
+  - `rvm install 2.6.3` if you have [RVM](https://rvm.io/)
   - similar instructions for rbenv (recommended!)
 2. Install some dependencies
   - `brew install postgres`
@@ -34,10 +34,7 @@ TODO:
 2. Run it. Either:
   - In two terminal tabs:
     - `bin/rails s` (in one terminal tab)
-    - `bin/webpack-dev-server` (in another terminal tab)
-  - OR in one terminal tab:
-    - `foreman -f Procfile.dev`
-  - Navigate to http://localhost:3000/
+    - `yarn start` (in another terminal tab)
 
 ## Tasks
 
