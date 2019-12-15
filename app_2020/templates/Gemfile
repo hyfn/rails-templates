@@ -1,52 +1,46 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.1'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+gem 'webpacker', '~> 4.0'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.7'
+gem 'oj'
 
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
+gem 'redis', '~> 4.0'
+# Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+# Use Active Storage variant
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.2', require: false
 
-# Auth
-# gem 'devise'
-# gem 'omniauth-facebook'
+group :development, :test do
+  gem 'rspec-rails', '~> 3.9'
+  gem 'rswag-specs'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'dotenv-rails'
+  gem 'fabrication'
+  gem 'ffaker'
+  gem 'fuubar'
+  gem 'annotate'
 
-# Asset Management
-# gem 'aws-sdk-s3', '~> 1'
-# gem 'mini_magick'
-
-# Monitoring
-gem 'newrelic_rpm'
-gem 'sentry-raven'
-# gem 'paper_trail'
-
-gem 'parallel', require: false
-
-# gem 'sidekiq'
-# gem 'sinatra', require: nil
-# gem 'postmark-rails'
-
-group :production, :staging do
-  gem 'puma_worker_killer'
-  gem 'rails_12factor'
-  gem 'dalli'
+  # gem 'bullet', require: false
+  gem 'bundler-audit', '>= 0.5.0', require: false
 end
 
 group :development do
@@ -60,24 +54,25 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'letter_opener'
   gem 'rubocop'
+  gem 'rubocop-rails'
 end
 
-group :development, :test do
-  gem 'rspec-rails', '~> 3.5'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'dotenv-rails'
-  gem 'fabrication'
-  gem 'ffaker'
-  gem 'fuubar'
-  gem 'annotate'
+group :production do
+  # Monitoring
+  gem 'newrelic_rpm'
+  gem 'sentry-raven'
 
-  gem 'bullet'
-  gem 'bundler-audit', '>= 0.5.0', require: false
+  gem 'puma_worker_killer'
+  gem 'rails_12factor'
+  gem 'dalli'
 end
 
 group :test do
   gem 'timecop'
   gem 'webmock'
   gem 'database_cleaner'
+  gem 'simplecov', require: false
 end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -2,7 +2,7 @@
 
 # Rails App 2020
 
-`rails new Skylight -d postgresql -S --skip-listen --skip-coffee -T --webpack=react -p`
+`rails new skylight -d postgresql -S --skip-listen --skip-coffee -T --webpack=react --skip-turbolinks`
 
 ## Rails App 2018
 

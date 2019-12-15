@@ -1,9 +1,11 @@
+require: rubocop-rails
+
 Rails/HasAndBelongsToMany:
   Enabled: false
 Rails/Output:
   Exclude:
-    - 'db/**/seeds.rb'
-    - 'lib/tasks/**/*'
+    - "db/**/seeds.rb"
+    - "lib/tasks/**/*"
 Style/GuardClause:
   MinBodyLength: 4
 Style/Documentation:
@@ -12,11 +14,33 @@ Rails:
   Enabled: true
 Style/FrozenStringLiteralComment:
   Enabled: false
-Metrics:
-  Enabled: false
+Naming/UncommunicativeMethodParamName:
+  AllowedNames: [ex, id, cr]
+Naming/RescuedExceptionsVariableName:
+  PreferredName: ex
 Metrics/LineLength:
   Enabled: true
-  Max: 120
+  Max: 80
+Metrics/MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+# Metrics/AMeSize:
+#   Enabled: false
+# Metrics/MetMetrics/MetMetric/AbcSize:
+#   Enabled: false
+Metrics/BlockLength:
+  # Enabled: false
+  Exclude:
+    - "spec/**/*.rb"
+    - "config/**/*.rb"
+    - "**/*.rake"
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/TrailingCommaInArguments:
@@ -28,31 +52,36 @@ Style/TrailingCommaInHashLiteral:
 Naming/AccessorMethodName:
   Enabled: false
 Style/StringLiterals:
-  Enabled: true
+  Enabled: false
   Exclude:
     - db/**/*.rb
     - config/**/*.rb
     - spec/**/*.rb
+Style/BlockDelimiters:
+  Exclude:
+    - "spec/**/*.rb"
 Layout/SpaceBeforeBlockBraces:
   Exclude:
-    - 'spec/**/*.rb'
+    - "spec/**/*.rb"
 Layout/SpaceInsideBlockBraces:
+  SpaceBeforeBlockParameters: false
   Exclude:
-    - 'spec/**/*.rb'
+    - "spec/**/*.rb"
+Style/BracesAroundHashParameters:
+  Enabled: false
 Style/DoubleNegation:
   Enabled: false
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**/*.rb'
 Bundler/OrderedGems:
   Enabled: false
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Layout/MultilineMethodCallBraceLayout:
   Enabled: false
-Layout/FirstParameterIndentation:
+Layout/IndentFirstArgument:
   EnforcedStyle: consistent
 Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Layout/AlignArguments:
   EnforcedStyle: with_fixed_indentation
 Rails/SafeNavigation:
   Enabled: true
@@ -66,22 +95,34 @@ Style/LambdaCall:
   Enabled: false
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
+Layout/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: key
 Style/SymbolArray:
   EnforcedStyle: percent
   MinSize: 6
 Style/WordArray:
   EnforcedStyle: percent
   MinSize: 6
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
-Performance/TimesMap:
+Layout/CaseIndentation:
+  Enabled: false
+# Performance/TimesMap:
+#   Enabled: false
+Style/RaiseArgs:
+  Enabled: false
+Style/Lambda:
   Enabled: false
 
 AllCops:
   Exclude:
     - db/schema.rb
     - db/migrate/**/*.rb
-    - bin/**/*.rb
-  TargetRubyVersion: 2.3
+    - bin/**/*
+    - scratch/**/*
+    - node_modules/**/*
+    - vendor/**/*
+  TargetRubyVersion: 2.5
