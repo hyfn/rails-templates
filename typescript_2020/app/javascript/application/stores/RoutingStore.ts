@@ -4,7 +4,7 @@ import {
   LocationState,
   LocationDescriptorObject,
 } from 'history'
-import { parse, stringify, QueryString } from 'application/helpers/queryString'
+import { parse, stringify, QueryString } from 'helpers/queryString'
 
 export default class RoutingStore {
   // @observable
