@@ -1,22 +1,33 @@
 # HYFN Rails Templates
 
-# Rails App 2020
+## Rails App 2020
 
-`rails new skylight -d postgresql -S --skip-listen --skip-coffee -T --webpack=react --skip-turbolinks`
+### Base App
 
     rails new skylight -d postgresql -S -T --skip-coffee --skip-turbolinks --webpack=react -m ./rails-templates/app_2020.rb
 
+### Typescript React App
+
+Typescript React starter. First you make the Base App (see above) and then you run this.
+
+    cd testapp # or whatever you named it
+    bin/rails app:template LOCATION=https://raw.github.com/hyfn/rails-templates/master/typescript_2018.rb
+    bundle install
+
+or with `LOCATION=../rails-templates/typescript_2020.rb` if you've got it locally
+
+
 ### To Do
-- [ ] circleCI pg version
+- [x] circleCI pg version
 - [ ] add coverage tool
 - [ ] add other fixture types to tests
 - [ ] probably other test stuff - check mxt and xpo
 - [ ] update the devise ENV var thing to match xpo. Add it to circleCI config as well
-- [ ] scrub all references to SENDGRID
-- [ ] move away from the double ENV file thing (instead just gitignore .env)
-- [ ] "secret" stuff needs to be update a bit
+- [x] scrub all references to SENDGRID
+- [x] ~~move away from the double ENV file thing (instead just gitignore .env)~~
+- [x] "secret" stuff needs to be update a bit
 - [ ] is spring working?
-- [ ] assets folder still seems to be making it in there
+- [x] assets folder still seems to be making it in there
 - [ ] revert my stupid "admin" thing. admin_user is saner
 - [ ] make active storage not broken (or remove it)
 - [x] update rubocop rules from mxt

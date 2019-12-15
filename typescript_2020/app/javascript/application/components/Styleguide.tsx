@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { observer, inject } from 'mobx-react'
 
 import './Styleguide.scss'
 
@@ -10,10 +9,6 @@ export interface StyleguideProps {
   routingStore: RoutingStore
 }
 
-@inject(({ routingStore }: AppStore) => ({
-  routingStore,
-}))
-@observer
 export default class Styleguide extends React.Component<StyleguideProps> {
   render() {
     return <div>Styleguide!</div>

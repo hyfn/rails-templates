@@ -16,7 +16,7 @@ def source_dir
   tmpdir
 end
 
-source_paths.unshift(File.join(source_dir, 'typescript_2018'))
+source_paths.unshift(File.join(source_dir, 'typescript_2020'))
 
 ####################################
 # WEBPACKER
@@ -24,62 +24,62 @@ source_paths.unshift(File.join(source_dir, 'typescript_2018'))
 
 rails_command 'webpacker:install:typescript'
 
-remove_file 'app/assets'
-
 # run 'yarn remove coffee-loader coffee-script'
 # remove_file 'config/webpack/loaders/coffee.js'
 
 npm_packages = %(
   @types/react @types/react-dom
   @types/classnames classnames
-  mobx mobx-react
   react-router-dom @types/react-router-dom
-  axios @types/axios
+  axios
   json2typescript
   lodash @types/lodash
-  raven-js @types/raven-js
+  @sentry/browser
+  @sentry/integrations
 ).gsub(/\s+/, ' ')
 
 run "yarn add #{npm_packages}"
 
 dev_packages = %(
-  tslint
+  dotenv
   prettier
-  tslint-react
-  tslint-no-circular-imports
+  eslint
+  eslint-config-prettier
+  @typescript-eslint/parser
+  @typescript-eslint/eslint-plugin
+  @typescript-eslint/eslint-plugin-tslint
+  eslint-plugin-react
   webpack-bundle-analyzer
 ).gsub(/\s+/, ' ')
 
 run "yarn add #{dev_packages} --dev"
 
-require 'pry'
+# require 'pry'
 
 package_json = JSON.parse(File.read('package.json'))
 
 package_json_updates = {
-  "scripts": {
-    "start": 'bin/webpack-dev-server',
-    "lint": 'tslint -p tsconfig.json --type-check -t verbose',
-    "lint:fix": 'tslint -p tsconfig.json --type-check --fix -t verbose',
+  "scripts" => {
+    "start" => './bin/webpack-dev-server',
+    # TODO: lint
   },
-  "engines": {
-    "vscode": '^1.0',
-    "node": '>=7.6.0',
-    "yarn": '^1.0',
+  "engines" => {
+    "node" => '>=10',
+    "yarn" => '^1.0',
   },
-  "prettier": {
-    "printWidth": 80,
-    "semi": false,
-    "trailingComma": 'es5',
+  "prettier" => {
+    "printWidth" => 80,
+    "semi" => false,
+    "trailingComma" => 'es5',
   },
 }
 
-File.write('package.json', JSON.dump(package_json.merge(package_json_updates)))
+File.write('package.json', JSON.pretty_generate(package_json.merge(package_json_updates)))
 
 remove_file 'app/javascript/packs/application.js'
 remove_file 'app/javascript/packs/hello_react.jsx'
 remove_file 'app/javascript/packs/hello_typescript.tsx'
 
 directory 'app', 'app', recursive: true, verbose: true
-copy_file 'tslint.json', 'tslint.json'
+copy_file 'eslintrc.json', '.eslintrc.json'
 copy_file 'tsconfig.json', 'tsconfig.json'

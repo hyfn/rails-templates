@@ -1,4 +1,3 @@
-import { observable, action, computed } from 'mobx'
 import {
   History,
   Location,
@@ -8,10 +7,10 @@ import {
 import { parse, stringify, QueryString } from 'application/helpers/queryString'
 
 export default class RoutingStore {
-  @observable
+  // @observable
   location: Location
 
-  @computed
+  // @computed
   get query() {
     return parse(this.location.search) as QueryString
   }
@@ -35,7 +34,7 @@ export default class RoutingStore {
     this.setQuery({ ...this.query, ...q }, loc)
   }
 
-  @action
+  // @action
   handleLocationChange = (location: Location) => {
     this.location = location
   }
