@@ -4,35 +4,7 @@
 
 `rails new skylight -d postgresql -S --skip-listen --skip-coffee -T --webpack=react --skip-turbolinks`
 
-## Rails App 2018
-
-### Base App
-
-Rails app with Webpacker, Heroku nginx config.
-
-    rails new testapp -d postgresql --webpack -J -S -T --skip-coffee --skip-turbolinks --webpack=react -m https://raw.github.com/hyfn/rails-templates/master/app_2018.rb
-
-or with `-m ./rails-templates/app_2018.rb` if you've got it locally
-
-### Admin
-
-Admin skeleton with Bootstrap and bootstrap_form. First you make the Base App (see above) and then you run this.
-
-    cd testapp # or whatever you named it
-    bin/rails app:template LOCATION=https://raw.github.com/hyfn/rails-templates/master/admin_2018.rb
-    bundle install
-
-or with `LOCATION=../rails-templates/admin_2018.rb` if you've got it locally
-
-### Typescript React App
-
-Typescript React starter. First you make the Base App (see above) and then you run this.
-
-    cd testapp # or whatever you named it
-    bin/rails app:template LOCATION=https://raw.github.com/hyfn/rails-templates/master/typescript_2018.rb
-    bundle install
-
-or with `LOCATION=../rails-templates/typescript_2018.rb` if you've got it locally
+    rails new skylight -d postgresql -S -T --skip-coffee --skip-turbolinks --webpack=react -m ./rails-templates/app_2020.rb
 
 ### To Do
 - [ ] circleCI pg version

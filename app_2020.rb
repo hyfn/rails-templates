@@ -38,7 +38,14 @@ copy_file 'Gemfile', force: true
 # REMOVE SECRETS.YML
 ####################################
 
-# remove_file 'config/secrets.yml'
+remove_file 'config/credentials.yml.enc'
+remove_file 'config/master.key'
+
+####################################
+# REMOVE ASSETS
+####################################
+
+remove_file 'app/assets'
 
 ####################################
 # DOTENV
@@ -61,17 +68,14 @@ copy_file 'database.yml', 'config/database.yml', force: true
 copy_file 'development.rb', 'config/environments/development.rb', force: true
 
 ####################################
-# PRODUCTION / STAGING ENVIRONMENTS
+# PRODUCTION ENVIRONMENT
 ####################################
 
 copy_file 'production.rb', 'config/environments/production.rb', force: true
-copy_file 'production.rb', 'config/environments/staging.rb', force: true
 
 ####################################
 # APP CONFIG
 ####################################
-
-# TODO: see what's actually needed in Rails 5.2
 
 environment <<~'RUBY'
       config.generators do |g|
@@ -134,14 +138,6 @@ end
 
 copy_file 'db.rake', 'lib/tasks/db.rake'
 copy_file 'auto_annotate_models.rake', 'lib/tasks/auto_annotate_models.rake'
-
-####################################
-# YARN
-####################################
-
-after_bundle do
-  run "yarn"
-end
 
 ####################################
 # GITIGNORES
