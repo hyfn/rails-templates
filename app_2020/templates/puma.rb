@@ -1,7 +1,7 @@
 RAILS_ENV = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
 
 workers Integer(ENV['WEB_CONCURRENCY'] || 1)
-threads_count = Integer(ENV['MAX_THREADS'] || 10)
+threads_count = Integer(ENV['MAX_THREADS'] || RAILS_ENV == 'development' ? 5 : 10)
 threads threads_count, threads_count
 
 preload_app!
@@ -13,8 +13,10 @@ environment RAILS_ENV
 worker_timeout 3600 if RAILS_ENV == 'development'
 
 before_fork do
-  require 'puma_worker_killer'
-  PumaWorkerKiller.enable_rolling_restart(3600)
+  if RAILS_ENV == 'production'
+    require 'puma_worker_killer'
+    PumaWorkerKiller.enable_rolling_restart(3600)
+  end
   ActiveRecord::Base.connection_pool.disconnect!
 end
 
