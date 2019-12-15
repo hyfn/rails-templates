@@ -73,27 +73,24 @@ copy_file 'production.rb', 'config/environments/staging.rb', force: true
 
 # TODO: see what's actually needed in Rails 5.2
 
-# environment <<~'RUBY'
-#       config.secret_token = ENV.fetch('SECRET_TOKEN')
-#       config.autoload_paths <<  Rails.root.join('app', 'services')
-#       config.autoload_paths <<  Rails.root.join('app', 'serializers')
-#       config.autoload_paths <<  Rails.root.join('app', 'uploaders')
-#       config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
-#       config.generators do |generate|
-#         generate.helper false
-#         generate.javascript_engine false
-#         generate.request_specs true
-#         generate.controller_specs false
-#         generate.routing_specs false
-#         generate.stylesheets false
-#         generate.test_framework :rspec
-#         generate.view_specs false
-#       end
+environment <<~'RUBY'
+      config.generators do |g|
+        g.orm             :active_record
+        g.template_engine :erb
+        g.system_tests    nil
+        g.stylesheets     false
+        g.javascripts     false
+        g.helper          false
+        g.controller_specs false
+        g.view_specs      false
+        g.assets          false
+        g.helper_specs false
+      end
 
-#       config.action_controller.action_on_unpermitted_parameters = :raise
+      config.action_controller.action_on_unpermitted_parameters = :raise
 
-#       Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
-# RUBY
+      Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
+RUBY
 
 ####################################
 # PUMA CONFIG
@@ -164,11 +161,6 @@ end
 
 create_file 'Procfile', <<~'TXT'
   web: bin/start-nginx bundle exec puma -C config/puma.rb
-TXT
-
-create_file 'Procfile.dev', <<~'TXT'
-  rails: ./bin/rails server -b 0.0.0.0 -p 3000
-  webpack: ./bin/webpack-dev-server --host 0.0.0.0
 TXT
 
 ####################################
