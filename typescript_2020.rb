@@ -85,3 +85,5 @@ directory 'app', 'app', recursive: true, verbose: true
 directory 'vscode', '.vscode', recursive: true, verbose: true
 copy_file 'eslintrc.json', '.eslintrc.json'
 copy_file 'tsconfig.json', 'tsconfig.json'
+
+copy_file 'development.js', 'config/webpack/development.js'
