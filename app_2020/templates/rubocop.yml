@@ -12,9 +12,18 @@ Style/Documentation:
   Enabled: false
 Rails:
   Enabled: true
+Rails/SafeNavigation:
+  Enabled: true
+Rails/HttpStatus:
+  Enabled: false
+
+Style/GuardClause:
+  MinBodyLength: 4
+Style/Documentation:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   AllowedNames: [ex, id, cr]
 Naming/RescuedExceptionsVariableName:
   PreferredName: ex
@@ -22,6 +31,8 @@ Metrics/LineLength:
   Enabled: true
   Max: 80
 Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
   Enabled: false
 Metrics/AbcSize:
   Enabled: false
@@ -36,7 +47,7 @@ Metrics/ClassLength:
 # Metrics/MetMetrics/MetMetric/AbcSize:
 #   Enabled: false
 Metrics/BlockLength:
-  # Enabled: false
+  Enabled: false
   Exclude:
     - "spec/**/*.rb"
     - "config/**/*.rb"
@@ -77,25 +88,21 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Layout/MultilineMethodCallBraceLayout:
   Enabled: false
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
-Rails/SafeNavigation:
-  Enabled: true
 Layout/DotPosition:
   EnforcedStyle: trailing
 Layout/MultilineOperationIndentation:
-  Enabled: false
-Rails/HttpStatus:
   Enabled: false
 Style/LambdaCall:
   Enabled: false
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: key
 Style/SymbolArray:
@@ -104,9 +111,9 @@ Style/SymbolArray:
 Style/WordArray:
   EnforcedStyle: percent
   MinSize: 6
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 Layout/CaseIndentation:
   Enabled: false
@@ -125,4 +132,4 @@ AllCops:
     - scratch/**/*
     - node_modules/**/*
     - vendor/**/*
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
