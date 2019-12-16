@@ -148,7 +148,7 @@ after_bundle do
   run('echo .env.local >> .gitignore')
   run('echo /.vagrant/ >> .gitignore')
   run('echo .ruby-gemset >> .gitignore')
-  run('echo /.vscode/ >> .gitignore')
+  # run('echo /.vscode/ >> .gitignore')
 end
 
 ####################################
