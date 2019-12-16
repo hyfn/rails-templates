@@ -20,11 +20,17 @@ declare type Constructor<T, U extends Array<any> = any> = new (...args: U) => T
 declare type Subtract<T, K> = Omit<T, keyof K>
 
 // some convenience wrappers for React event types
-declare type InputEvent = React.FormEvent<HTMLInputElement>
-declare type FormEvent = React.FormEvent<HTMLFormElement>
-declare type LinkEvent = React.MouseEvent<HTMLAnchorElement>
-declare type SelectEvent = React.ChangeEvent<HTMLSelectElement>
-declare type ButtonEvent = React.FormEvent<HTMLButtonElement>
+// declare type InputEvent = React.FormEvent<HTMLInputElement>
+// declare type FormEvent = React.FormEvent<HTMLFormElement>
+// declare type LinkEvent = React.MouseEvent<HTMLAnchorElement>
+// declare type SelectEvent = React.ChangeEvent<HTMLSelectElement>
+// declare type ButtonEvent = React.FormEvent<HTMLButtonElement>
+
+// tell TS that the typedefs for @rails/actioncable are at @types/actioncable
+declare module "@rails/actioncable" {
+  import * as ActionCable from "actioncable"
+  export = ActionCable
+}
 
 declare module "*.png" {
   const content: string

@@ -1,0 +1,38 @@
+{
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+
+  // "prettier.eslintIntegration": true,
+  // "openInGitHub.defaultBranch": "develop",
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  "eslint.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.packageManager": "yarn",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    { "language": "typescript" },
+    { "language": "typescriptreact" }
+  ],
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[ruby]": {
+    "editor.formatOnSave": false
+  },
+}
+

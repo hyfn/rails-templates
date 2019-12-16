@@ -1,3 +1,4 @@
+# require 'pry'
 require 'fileutils'
 require 'shellwords'
 require 'json'
@@ -36,6 +37,7 @@ npm_packages = %(
   lodash @types/lodash
   @sentry/browser
   @sentry/integrations
+  @types/actioncable
 ).gsub(/\s+/, ' ')
 
 run "yarn add #{npm_packages}"
@@ -53,8 +55,6 @@ dev_packages = %(
 ).gsub(/\s+/, ' ')
 
 run "yarn add #{dev_packages} --dev"
-
-# require 'pry'
 
 package_json = JSON.parse(File.read('package.json'))
 
@@ -79,7 +79,9 @@ File.write('package.json', JSON.pretty_generate(package_json.merge(package_json_
 remove_file 'app/javascript/packs/application.js'
 remove_file 'app/javascript/packs/hello_react.jsx'
 remove_file 'app/javascript/packs/hello_typescript.tsx'
+remove_file 'app/javascript/packs/hello_typescript.ts'
 
 directory 'app', 'app', recursive: true, verbose: true
+directory 'vscode', '.vscode', recursive: true, verbose: true
 copy_file 'eslintrc.json', '.eslintrc.json'
 copy_file 'tsconfig.json', 'tsconfig.json'

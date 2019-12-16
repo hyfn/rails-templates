@@ -46,7 +46,7 @@ export default function initSentry({ debug, tags, user }: Props) {
         // || bc.category === "savedState"
       ) {
         prettifyCategories.forEach(k => {
-          if (bc.data[k] && typeof bc.data[k] === "object") {
+          if (bc.data?.[k] && typeof bc.data[k] === "object") {
             let data = JSON.stringify(bc.data[k], null, 1).replace(/["\\]/g, "")
             if (data.length >= 1024) data = data.slice(0, 512) + "..."
             bc.data[k] = data
@@ -55,7 +55,7 @@ export default function initSentry({ debug, tags, user }: Props) {
       }
       if (
         bc.category === "xhr" &&
-        bc.data.url === "https://api.amplitude.com"
+        bc.data?.url === "https://api.amplitude.com"
       ) {
         return null
       }
